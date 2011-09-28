@@ -7,38 +7,38 @@
                 style="@style/WidgetBackground_2_2">
 
     <ImageView
-            android:id="@+id/icon"
+            android:id="@+id/widget_layout_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
             android:layout_marginLeft="15dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
-            android:src="@drawable/icon"/>
+            android:src="@drawable/logo"/>
 
     <TextView
             android:id="@+id/word_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/icon"
+            android:layout_toRightOf="@id/widget_layout_logo"
             android:layout_marginTop="25dip"
             android:layout_marginLeft="0dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
 
-            android:text="@string/title"
+            android:text="@string/widget_layout_header"
             style="@style/WidgetTitle"/>
 
     <TextView
-            android:id="@+id/word_text"
+            android:id="@+id/widget_layout_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/icon"
+            android:layout_below="@id/widget_layout_logo"
             android:layout_marginTop="5dip"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
-            android:text="Our Widget Text comes here."
+            android:text="@string/widget_layout_body"
             style="@style/WidgetText"/>
 
 </RelativeLayout>

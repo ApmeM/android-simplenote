@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-public class SampleWidgetActivity extends Activity {
-    private static final String TAG = "SampleWidgetActivity";
+public class SimpleNoteWidgetActivity extends Activity {
+    private static final String TAG = "SimpleNoteWidgetActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_layout);
 
-        TextView text = (TextView) this.findViewById(R.id.text);
+        TextView text = (TextView) this.findViewById(R.id.activity_layout_text);
         text.setText("appWidgetId:" + this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0));
     }
 
@@ -25,7 +25,7 @@ public class SampleWidgetActivity extends Activity {
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String widgetText = this.getIntent().getStringExtra(Constants.INTENT_EXTRA_WIDGET_TEXT) + Constants.dateFormat.format(new Date());
 
-        TextView text = (TextView) this.findViewById(R.id.text);
+        TextView text = (TextView) this.findViewById(R.id.activity_layout_text);
         text.setText(String.format("Send '%s' to %d widget", widgetText, appWidgetId));
 
         Intent intent = new Intent(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY);

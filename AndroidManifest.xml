@@ -3,16 +3,18 @@
       package="org.apmem.widget.notes"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".SampleWidgetActivity"
-                  android:label="@string/app_name">
+    <application android:icon="@drawable/logo" android:label="@string/app_name">
+        <activity android:name=".SimpleNoteWidgetActivity"
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.Dialog"
+                >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".SampleWidgetProvider" android:label="@string/app_widget_2_2">
+        <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_2">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>

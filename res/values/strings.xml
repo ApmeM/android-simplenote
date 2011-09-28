@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AndroidWidgetSample</string>
-    <string name="app_widget_2_2">Our Widget (v 0.5)</string>
-    <string name="btn_send_text">Send Text</string>
-    <string name="title">Title2</string>
+    <string name="app_name">Simple note</string>
+    <string name="app_widget_2_2">Simple note</string>
+
+    <string name="activity_layout_header">Edit items</string>
+    <string name="activity_layout_save">Save</string>
+    <string name="widget_layout_header">List</string>
+    <string name="widget_layout_body">body</string>
 </resources>

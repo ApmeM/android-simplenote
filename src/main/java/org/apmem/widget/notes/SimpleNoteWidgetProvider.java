@@ -12,8 +12,8 @@ import android.widget.RemoteViews;
 
 import java.util.Date;
 
-public class SampleWidgetProvider extends AppWidgetProvider {
-    private static final String TAG = "SampleWidgetProvider";
+public class SimpleNoteWidgetProvider extends AppWidgetProvider {
+    private static final String TAG = "SimpleNoteWidgetProvider";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -42,13 +42,13 @@ public class SampleWidgetProvider extends AppWidgetProvider {
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             String widgetText = extras.getString(Constants.INTENT_EXTRA_WIDGET_TEXT);
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-            remoteViews.setTextViewText(R.id.word_text, widgetText);
+            remoteViews.setTextViewText(R.id.widget_layout_body, widgetText);
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
             String widgetText = extras.getString(Constants.INTENT_EXTRA_WIDGET_TEXT);
             widgetText = widgetText + " at " + Constants.dateFormat.format(new Date());
-            remoteViews.setTextViewText(R.id.word_text, widgetText);
+            remoteViews.setTextViewText(R.id.widget_layout_body, widgetText);
             this.updateWidget(context, appWidgetId, remoteViews);
         }else{
             super.onReceive(context, intent);
@@ -56,12 +56,12 @@ public class SampleWidgetProvider extends AppWidgetProvider {
     }
 
     private void updateWidget(Context context, int appWidgetId, RemoteViews remoteViews) {
-//        ComponentName thisWidget = new ComponentName(context, SampleWidgetProvider.class);
+//        ComponentName thisWidget = new ComponentName(context, SimpleNoteWidgetProvider.class);
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews);
     }
 
     private void setOnActivityClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SampleWidgetActivity.class);
+        Intent newIntent = new Intent(context, SimpleNoteWidgetActivity.class);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_TEXT, "Button clicked on Activity");
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
@@ -74,7 +74,7 @@ public class SampleWidgetProvider extends AppWidgetProvider {
     }
 
     private Intent setOnWidgetClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SampleWidgetProvider.class);
+        Intent newIntent = new Intent(context, SimpleNoteWidgetProvider.class);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_TEXT, "Icon clicked on Widget");
         newIntent.setAction(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET);
@@ -84,7 +84,8 @@ public class SampleWidgetProvider extends AppWidgetProvider {
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.icon, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.widget_layout_logo, pendingIntent);
+
         return newIntent;
     }
 }
