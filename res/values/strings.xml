@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidWidgetSample</string>
+    <string name="app_widget_2_2">Our Widget (v 0.5)</string>
+    <string name="btn_send_text">Send Text</string>
+    <string name="title">Title2</string>
+</resources>
