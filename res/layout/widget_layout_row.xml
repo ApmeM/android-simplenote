@@ -3,10 +3,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="horizontal">
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/widget_layout_row_text"
             ></TextView>
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/widget_layout_row_button_delete"
+            android:text="@string/widget_layout_row_button_delete"
+            ></Button>
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/widget_layout_row_button_edit"
+            android:text="@string/widget_layout_row_button_edit"
+            ></Button>
 </LinearLayout>
