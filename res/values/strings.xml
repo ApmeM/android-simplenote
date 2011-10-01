@@ -7,4 +7,10 @@
     <string name="activity_layout_save">Save</string>
     <string name="widget_layout_header">List</string>
     <string name="widget_layout_body">body</string>
+
+    <string name="activity_lists_row_button_edit">Edit</string>
+    <string name="activity_lists_row_button_remove">Delete</string>
+    <string name="activity_lists_button_add">Add</string>
+    <string name="activity_lists_row_edit_button_cancel">Cancel</string>
+    <string name="activity_lists_row_edit_button_commit">Commit</string>
 </resources>

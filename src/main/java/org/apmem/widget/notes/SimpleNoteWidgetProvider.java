@@ -9,11 +9,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
+import org.apmem.widget.notes.datastore.ListsRepository;
+import org.apmem.widget.notes.datastore.ListsWidgetRepository;
+import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
+import org.apmem.widget.notes.datastore.model.ListElement;
+import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 
 import java.util.Date;
 
 public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "SimpleNoteWidgetProvider";
+    private ListsRepository listRepository = new ListsRepositoryFake();
+    private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -40,9 +48,12 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         Bundle extras = intent.getExtras();
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
-            String widgetText = extras.getString(Constants.INTENT_EXTRA_WIDGET_TEXT);
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-            remoteViews.setTextViewText(R.id.widget_layout_body, widgetText);
+            ListWidgetElement widgetElement = this.listsWidgetRepository.get(appWidgetId);
+            if(widgetElement != null){
+                ListElement element = this.listRepository.get(widgetElement.getListId());
+                remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
+            }
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
@@ -61,7 +72,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     }
 
     private void setOnActivityClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetActivity.class);
+        Intent newIntent = new Intent(context, SimpleNoteWidgetListsActivity.class);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_TEXT, "Button clicked on Activity");
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 

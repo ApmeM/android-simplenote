@@ -1,0 +1,4 @@
+<resources>
+    <color name="activity_lists_row_selected">#FFFF00</color>
+    <color name="activity_lists_row_normal">#000000</color>
+</resources>

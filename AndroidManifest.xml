@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.apmem.widget.notes"
-      android:versionCode="1"
-      android:versionName="1.0">
+          package="org.apmem.widget.notes"
+          android:versionCode="1"
+          android:versionName="1.0">
     <application android:icon="@drawable/logo" android:label="@string/app_name">
-        <activity android:name=".SimpleNoteWidgetActivity"
+        <activity android:name=".SimpleNoteWidgetListsActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.Dialog"
-                >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+                />
         <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_2">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_WIDGET"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_2_2" />
-        </receiver>        
-        
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_2_2"/>
+        </receiver>
+
     </application>
 
 
