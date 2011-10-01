@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
+import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListElement;
@@ -32,6 +34,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     private ListsRepository listsRepository = new ListsRepositoryFake();
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
+    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
     private ListsAdapter adapter;
 
     @Override
@@ -98,7 +101,9 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         if (widgetElement != null) {
             listsWidgetRepository.update(appWidgetId, element.getId());
         } else {
-            listsWidgetRepository.add(appWidgetId, element.getId());
+            long listId = listsWidgetRepository.add(appWidgetId, element.getId());
+            listsItemRepository.add("test1", listId);
+            listsItemRepository.add("test2", listId);
         }
 
         this.updateWidget(appWidgetId);

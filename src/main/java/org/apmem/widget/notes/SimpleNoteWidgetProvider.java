@@ -9,18 +9,23 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
+import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
+import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListElement;
+import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 
 import java.util.Date;
+import java.util.List;
 
 public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "SimpleNoteWidgetProvider";
     private ListsRepository listRepository = new ListsRepositoryFake();
+    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
 
     @Override
@@ -53,6 +58,13 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
             if(widgetElement != null){
                 ListElement element = this.listRepository.get(widgetElement.getListId());
                 remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
+                List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
+
+                remoteViews.removeAllViews(R.id.widget_layout_list);
+
+                for(ListItemElement item: listItems){
+                    this.addItem(remoteViews, item);
+                }
             }
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET)) {
@@ -64,6 +76,12 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         }else{
             super.onReceive(context, intent);
         }
+    }
+
+    private void addItem(RemoteViews remoteViews, ListItemElement item) {
+        RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row);
+        newView.setTextViewText(R.id.widget_layout_row_text, item.getName());
+        remoteViews.addView(R.id.widget_layout_list, newView);
     }
 
     private void updateWidget(Context context, int appWidgetId, RemoteViews remoteViews) {
