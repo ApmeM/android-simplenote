@@ -50,7 +50,8 @@
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
             android:text="@string/widget_layout_button_add"
-            android:orientation="vertical"/>
+            android:orientation="vertical"
+            android:background="@drawable/add_item"/>
     <LinearLayout
             android:id="@+id/widget_layout_list"
             android:layout_width="wrap_content"

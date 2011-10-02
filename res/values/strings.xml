@@ -3,23 +3,20 @@
     <string name="app_name">Simple note</string>
     <string name="app_widget_2_2">Simple note</string>
 
-    <string name="activity_layout_header">Edit items</string>
-    <string name="activity_layout_save">Save</string>
-
     <string name="widget_layout_header">List name</string>
     <string name="widget_layout_body">You have the following items in your list:</string>
-    <string name="widget_layout_button_add">Add</string>
+    <string name="widget_layout_button_add"> </string>
 
-    <string name="widget_layout_row_button_edit">Edit</string>
-    <string name="widget_layout_row_button_delete">Delete</string>
+    <string name="widget_layout_row_button_edit"> </string>
+    <string name="widget_layout_row_button_remove"> </string>
 
-    <string name="activity_lists_button_add">Add</string>
-    <string name="activity_lists_row_button_edit">Edit</string>
-    <string name="activity_lists_row_button_remove">Delete</string>
-    <string name="activity_lists_row_edit_button_cancel">Cancel</string>
-    <string name="activity_lists_row_edit_button_commit">Commit</string>
+    <string name="activity_lists_button_add"> </string>
+    <string name="activity_lists_row_button_edit"> </string>
+    <string name="activity_lists_row_button_remove"> </string>
+    <string name="activity_lists_row_edit_button_cancel"> </string>
+    <string name="activity_lists_row_edit_button_commit"> </string>
 
-    <string name="activity_item_button_cancel">Cancel</string>
-    <string name="activity_item_button_commit">Commit</string>
+    <string name="activity_item_button_cancel"> </string>
+    <string name="activity_item_button_commit"> </string>
 
 </resources>

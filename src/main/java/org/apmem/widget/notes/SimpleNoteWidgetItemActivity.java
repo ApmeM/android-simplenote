@@ -37,7 +37,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
 
         EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
 
-        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
+        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
         ListItemElement item = this.listsItemRepository.get(itemId);
         if (item != null) {
             editText.setText(item.getName());
@@ -50,12 +50,12 @@ public class SimpleNoteWidgetItemActivity extends Activity {
         Log.i(TAG, "onCommit");
 
         EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
-        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
+        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
         String name = editText.getText().toString();
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
 
-        if(itemId == -1){
+        if(itemId == -1l){
             this.listsItemRepository.add(name, widget.getListId());
         }else{
             this.listsItemRepository.update(itemId, name);

@@ -11,12 +11,14 @@
             ></TextView>
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/widget_layout_row_button_delete"
-            android:text="@string/widget_layout_row_button_delete"
+            android:id="@+id/widget_layout_row_button_remove"
+            android:text="@string/widget_layout_row_button_remove"
+            android:background="@drawable/remove_item"
             ></Button>
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/widget_layout_row_button_edit"
             android:text="@string/widget_layout_row_button_edit"
+            android:background="@drawable/edit_item"
             ></Button>
 </LinearLayout>

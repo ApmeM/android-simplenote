@@ -13,11 +13,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/activity_lists_row_button_remove"
                 android:id="@+id/activity_lists_row_button_remove"
+                android:background="@drawable/remove_list"
                 />
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/activity_lists_row_button_edit"
                 android:id="@+id/activity_lists_row_button_edit"
+            android:background="@drawable/edit_list"
                 />
 </LinearLayout>

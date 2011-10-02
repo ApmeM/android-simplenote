@@ -121,7 +121,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget_layout_row_button_delete, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.widget_layout_row_button_remove, pendingIntent);
     }
 
     private void setOnAddItemClick(Context context, int appWidgetId, RemoteViews remoteViews) {
