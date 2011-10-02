@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import org.apmem.widget.notes.adapters.ListsAdapter;
+import org.apmem.widget.notes.adapters.OnKeyboardRequestListener;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
@@ -89,6 +92,17 @@ public class SimpleNoteWidgetListsActivity extends Activity {
                 select(view);
             }
         });
+        this.adapter.setOnKeyboardRequestListener(new OnKeyboardRequestListener() {
+            @Override
+            public void okKeyboardRequest(boolean show) {
+                if (show) {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                } else {
+                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                }
+            }
+        });
+
         listView.setAdapter(this.adapter);
     }
 

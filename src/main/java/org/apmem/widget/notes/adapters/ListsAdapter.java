@@ -1,4 +1,4 @@
-package org.apmem.widget.notes;
+package org.apmem.widget.notes.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import org.apmem.widget.notes.R;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
 
@@ -27,6 +28,7 @@ public class ListsAdapter extends BaseAdapter {
     private View.OnClickListener onCommitClickListener;
     private View.OnClickListener onCancelClickListener;
     private View.OnClickListener onItemClickListener;
+    private OnKeyboardRequestListener onKeyboardRequestListener;
 
     public ListsAdapter(ListsRepository listRepository, LayoutInflater layoutInflater) {
         this.listRepository = listRepository;
@@ -52,6 +54,7 @@ public class ListsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ListElement element = (ListElement) this.getItem(i);
         View v;
+        boolean keyboardRequested = false;
         if (element.isEdited()) {
             v = layoutInflater.inflate(R.layout.activity_lists_row_edit, null);
             EditText editText = (EditText) v.findViewById(R.id.activity_lists_row_edit_text);
@@ -60,6 +63,8 @@ public class ListsAdapter extends BaseAdapter {
 
             if (editText != null) {
                 editText.setText(element.getName());
+                editText.requestFocus();
+                keyboardRequested = true;
             }
             if (commit != null) {
                 commit.setOnClickListener(onCommitClickListener);
@@ -92,6 +97,10 @@ public class ListsAdapter extends BaseAdapter {
             v.setBackgroundResource(R.color.activity_lists_row_normal);
         }
 
+        if(onKeyboardRequestListener!= null){
+            onKeyboardRequestListener.okKeyboardRequest(keyboardRequested);
+        }
+
         v.setTag(element);
         return v;
     }
@@ -114,6 +123,10 @@ public class ListsAdapter extends BaseAdapter {
 
     public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnKeyboardRequestListener(OnKeyboardRequestListener onKeyboardRequestListener) {
+        this.onKeyboardRequestListener = onKeyboardRequestListener;
     }
 
     public void setSelectedListId(long selectedListId) {

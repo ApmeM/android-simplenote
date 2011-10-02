@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
@@ -44,6 +45,8 @@ public class SimpleNoteWidgetItemActivity extends Activity {
         } else {
             editText.setText("new item");
         }
+        editText.requestFocus();
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     public void onCommit(View button) {
