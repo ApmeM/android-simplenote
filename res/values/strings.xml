@@ -19,4 +19,16 @@
     <string name="activity_item_button_cancel"> </string>
     <string name="activity_item_button_commit"> </string>
 
+    <string name="drawable_link_image_logo">http://www.iconfinder.com/icondetails/46774/32/add_notes_icon?r=1</string>
+    <string name="drawable_link_image_add_list">http://www.iconfinder.com/icondetails/32378/32/</string>
+    <string name="drawable_link_image_add_item">http://www.iconfinder.com/icondetails/46776/32/add_icon?r=1</string>
+    <string name="drawable_link_image_delete_list">http://www.iconfinder.com/icondetails/34217/32/</string>
+    <string name="drawable_link_image_delete_item">http://www.iconfinder.com/icondetails/34217/32/</string>
+    <string name="drawable_link_image_commit_list">http://www.iconfinder.com/icondetails/58494/32/button_check_white_icon</string>
+    <string name="drawable_link_image_commit_item">http://www.iconfinder.com/icondetails/58494/32/button_check_white_icon</string>
+    <string name="drawable_link_image_edit_list">http://www.iconfinder.com/icondetails/43769/32/document_edit_icon</string>
+    <string name="drawable_link_image_edit_item">http://www.iconfinder.com/icondetails/43769/32/document_edit_icon</string>
+    <string name="drawable_link_image_cancel_list">http://www.iconfinder.com/icondetails/34208/32/</string>
+    <string name="drawable_link_image_cancel_item">http://www.iconfinder.com/icondetails/34208/32/</string>
+
 </resources>
