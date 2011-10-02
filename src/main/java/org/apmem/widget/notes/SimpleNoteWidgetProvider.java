@@ -35,9 +35,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
 
-            this.setOnWidgetClick(context, appWidgetId, remoteViews);
-
-            this.setOnSelectListClick(context, appWidgetId, remoteViews);
+            this.setOnSelectListIconClick(context, appWidgetId, remoteViews);
 
             this.setOnAddItemClick(context, appWidgetId, remoteViews);
 
@@ -131,7 +129,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.widget_layout_button_add, pendingIntent);
     }
 
-    private void setOnSelectListClick(Context context, int appWidgetId, RemoteViews remoteViews) {
+    private void setOnSelectListIconClick(Context context, int appWidgetId, RemoteViews remoteViews) {
         Intent newIntent = new Intent(context, SimpleNoteWidgetListsActivity.class);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
@@ -140,9 +138,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget, pendingIntent);
+        remoteViews.setOnClickPendingIntent(R.id.widget_layout_logo, pendingIntent);
     }
 
+    /*
     private Intent setOnWidgetClick(Context context, int appWidgetId, RemoteViews remoteViews) {
         Intent newIntent = new Intent(context, SimpleNoteWidgetProvider.class);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
@@ -158,4 +157,5 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
 
         return newIntent;
     }
+    */
 }

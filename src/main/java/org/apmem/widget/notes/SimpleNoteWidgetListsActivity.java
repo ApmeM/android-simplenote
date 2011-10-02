@@ -3,7 +3,6 @@ package org.apmem.widget.notes;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +18,8 @@ import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
-
-import java.util.List;
+import org.apmem.widget.notes.refresh.Refresher;
+import org.apmem.widget.notes.refresh.impl.RefresherImpl;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,6 +34,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private ListsRepository listsRepository = new ListsRepositoryFake();
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
     private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
+    private Refresher refresher = new RefresherImpl(this, listsWidgetRepository);
     private ListsAdapter adapter;
 
     @Override
@@ -106,7 +106,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
             listsItemRepository.add("test2", listId);
         }
 
-        this.updateWidget(appWidgetId);
+        this.refresher.updateWidget(appWidgetId);
 
         this.finish();
     }
@@ -121,10 +121,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         this.listsRepository.update(element.getId(), text.getText().toString());
         this.adapter.notifyDataSetChanged();
 
-        List<ListWidgetElement> listWidgetElement = this.listsWidgetRepository.list(element.getId());
-        for (ListWidgetElement widgetElement : listWidgetElement) {
-            this.updateWidget(widgetElement.getWidgetId());
-        }
+        this.refresher.updateList(element.getId());
     }
 
     private void cancel(View button) {
@@ -157,11 +154,5 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private ListElement findElement(View control) {
         LinearLayout parent = (LinearLayout) control.getParent();
         return (ListElement) parent.getTag();
-    }
-
-    private void updateWidget(int appWidgetId) {
-        Intent intent = new Intent(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        this.sendBroadcast(intent);
     }
 }

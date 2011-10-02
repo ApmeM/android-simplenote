@@ -2,7 +2,6 @@ package org.apmem.widget.notes;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,8 +14,8 @@ import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
-
-import java.util.List;
+import org.apmem.widget.notes.refresh.Refresher;
+import org.apmem.widget.notes.refresh.impl.RefresherImpl;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,10 +27,9 @@ import java.util.List;
 public class SimpleNoteWidgetItemDeleteActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetItemActivity";
 
-    private ListsRepository listsRepository = new ListsRepositoryFake();
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
     private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private ListsAdapter adapter;
+    private Refresher refresher = new RefresherImpl(this, listsWidgetRepository);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,21 +55,13 @@ public class SimpleNoteWidgetItemDeleteActivity extends Activity {
 
         this.listsItemRepository.remove(itemId);
 
-        List<ListWidgetElement> listWidgetElement = this.listsWidgetRepository.list(widget.getListId());
-        for (ListWidgetElement widgetElement : listWidgetElement) {
-            this.updateWidget(widgetElement.getWidgetId());
-        }
+        this.refresher.updateList(widget.getListId());
+
         this.finish();
     }
 
     public void onCancel(View button) {
         Log.i(TAG, "onCancel");
         this.finish();
-    }
-
-    private void updateWidget(int appWidgetId) {
-        Intent intent = new Intent(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY);
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        this.sendBroadcast(intent);
     }
 }
