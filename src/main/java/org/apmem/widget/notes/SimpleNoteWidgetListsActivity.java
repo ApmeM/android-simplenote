@@ -19,7 +19,7 @@ import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
-import org.apmem.widget.notes.refresh.impl.RefresherImpl;
+import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,7 +34,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private ListsRepository listsRepository = new ListsRepositoryFake();
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
     private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private Refresher refresher = new RefresherImpl(this, listsWidgetRepository);
+    private Refresher refresher = new RefresherFromActivity(listsWidgetRepository);
     private ListsAdapter adapter;
 
     @Override
@@ -106,7 +106,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
             listsItemRepository.add("test2", listId);
         }
 
-        this.refresher.updateWidget(appWidgetId);
+        this.refresher.updateWidget(this, appWidgetId);
 
         this.finish();
     }
@@ -121,7 +121,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         this.listsRepository.update(element.getId(), text.getText().toString());
         this.adapter.notifyDataSetChanged();
 
-        this.refresher.updateList(element.getId());
+        this.refresher.updateList(this, element.getId());
     }
 
     private void cancel(View button) {

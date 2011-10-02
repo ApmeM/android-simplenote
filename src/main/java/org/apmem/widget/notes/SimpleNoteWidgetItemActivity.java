@@ -13,7 +13,7 @@ import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
-import org.apmem.widget.notes.refresh.impl.RefresherImpl;
+import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,7 +27,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
 
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
     private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private Refresher refresher = new RefresherImpl(this, listsWidgetRepository);
+    private Refresher refresher = new RefresherFromActivity(listsWidgetRepository);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
             this.listsItemRepository.update(itemId, name);
         }
 
-        this.refresher.updateList(widget.getListId());
+        this.refresher.updateList(this, widget.getListId());
 
         this.finish();
     }
