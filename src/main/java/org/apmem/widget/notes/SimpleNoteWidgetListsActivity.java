@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import org.apmem.widget.notes.adapters.ListsAdapter;
 import org.apmem.widget.notes.adapters.OnKeyboardRequestListener;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
@@ -20,9 +20,12 @@ import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
 import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.datastore.model.ListElement;
+import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
 import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -115,9 +118,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         if (widgetElement != null) {
             listsWidgetRepository.update(appWidgetId, element.getId());
         } else {
-            long listId = listsWidgetRepository.add(appWidgetId, element.getId());
-            listsItemRepository.add("test1", listId);
-            listsItemRepository.add("test2", listId);
+            listsWidgetRepository.add(appWidgetId, element.getId());
         }
 
         this.refresher.updateWidget(this, appWidgetId);
@@ -130,7 +131,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         Log.i(TAG, "commit");
         ListElement element = this.findElement(button);
         element.setEdited(false);
-        LinearLayout parent = (LinearLayout) button.getParent();
+        RelativeLayout parent = (RelativeLayout) button.getParent();
         EditText text = (EditText) parent.findViewById(R.id.activity_lists_row_edit_text);
         this.listsRepository.update(element.getId(), text.getText().toString());
         this.adapter.notifyDataSetChanged();
@@ -155,18 +156,33 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private void remove(View button) {
         Log.i(TAG, "remove");
         ListElement element = this.findElement(button);
+        List<ListWidgetElement> listWidgets = this.listsWidgetRepository.list(element.getId());
+        List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
+
+        for (ListItemElement item : listItems) {
+            this.listsItemRepository.remove(item.getId());
+        }
+
+        for (ListWidgetElement item : listWidgets) {
+            this.listsWidgetRepository.remove(item.getWidgetId());
+            this.refresher.updateWidget(this, item.getWidgetId());
+        }
+
         this.listsRepository.remove(element.getId());
         this.adapter.notifyDataSetChanged();
     }
 
     public void addList(View button) {
         Log.i(TAG, "addList");
-        this.listsRepository.add("Set name");
+        long listId = this.listsRepository.add("Set name");
         this.adapter.notifyDataSetChanged();
+
+        listsItemRepository.add("test1", listId);
+        listsItemRepository.add("test2", listId);
     }
 
     private ListElement findElement(View control) {
-        LinearLayout parent = (LinearLayout) control.getParent();
+        RelativeLayout parent = (RelativeLayout) control.getParent();
         return (ListElement) parent.getTag();
     }
 }

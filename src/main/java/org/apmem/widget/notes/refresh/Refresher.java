@@ -2,6 +2,8 @@ package org.apmem.widget.notes.refresh;
 
 import android.content.Context;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: ApmeM

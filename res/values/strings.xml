@@ -3,8 +3,8 @@
     <string name="app_name">Simple note</string>
     <string name="app_widget_2_2">Simple note</string>
 
-    <string name="widget_layout_header">List name</string>
-    <string name="widget_layout_body">You have the following items in your list:</string>
+    <string name="widget_layout_title">List name</string>
+    <string name="widget_layout_body">Click on logo image to select or create new list.</string>
     <string name="widget_layout_button_add"> </string>
 
     <string name="widget_layout_row_button_edit"> </string>

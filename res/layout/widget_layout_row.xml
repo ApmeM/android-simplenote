@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/widget_layout_row_text"
-            ></TextView>
+              android:layout_height="wrap_content">
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/widget_layout_row_button_remove"
-            android:text="@string/widget_layout_row_button_remove"
-            android:background="@drawable/remove_item"
-            ></Button>
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dip"
             android:id="@+id/widget_layout_row_button_edit"
             android:text="@string/widget_layout_row_button_edit"
             android:background="@drawable/edit_item"
-            ></Button>
-</LinearLayout>
+            />
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/widget_layout_row_button_edit"
+            android:layout_marginLeft="5dip"
+            android:id="@+id/widget_layout_row_button_remove"
+            android:text="@string/widget_layout_row_button_remove"
+            android:background="@drawable/remove_item"
+            />
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/widget_layout_row_button_remove"
+            android:id="@+id/widget_layout_row_text"
+            />
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
@@ -57,16 +58,23 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
             ListWidgetElement widgetElement = this.listsWidgetRepository.get(appWidgetId);
+            remoteViews.removeAllViews(R.id.widget_layout_list);
+
             if (widgetElement != null) {
                 ListElement element = this.listRepository.get(widgetElement.getListId());
                 remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
                 List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
 
-                remoteViews.removeAllViews(R.id.widget_layout_list);
-
                 for (ListItemElement item : listItems) {
                     this.addItem(context, appWidgetId, remoteViews, item);
                 }
+
+                remoteViews.setViewVisibility(R.id.widget_layout_body, View.GONE);
+                remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
+            } else {
+                remoteViews.setTextViewText(R.id.widget_layout_title, context.getResources().getString(R.string.widget_layout_title));
+                remoteViews.setViewVisibility(R.id.widget_layout_body, View.VISIBLE);
+                remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.GONE);
             }
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_DELETE_ITEM)) {
@@ -79,6 +87,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
             }
 
             this.updateWidget(context, appWidgetId, remoteViews);
+        } else if (action.equals(AppWidgetManager.ACTION_APPWIDGET_DELETED)) {
+            int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            this.listsWidgetRepository.remove(appWidgetId);
+            super.onReceive(context, intent);
         } else {
             super.onReceive(context, intent);
         }

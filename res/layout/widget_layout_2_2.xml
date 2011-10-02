@@ -26,7 +26,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
 
-            android:text="@string/widget_layout_header"
+            android:text="@string/widget_layout_title"
             style="@style/WidgetTitle"/>
 
     <TextView
@@ -40,8 +40,8 @@
             android:layout_marginBottom="0dip"
             android:text="@string/widget_layout_body"
             style="@style/WidgetText"/>
-    <Button
-            android:id="@+id/widget_layout_button_add"
+    <LinearLayout
+            android:id="@+id/widget_layout_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_layout_body"
@@ -49,17 +49,18 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
-            android:text="@string/widget_layout_button_add"
-            android:orientation="vertical"
-            android:background="@drawable/add_item"/>
-    <LinearLayout
-            android:id="@+id/widget_layout_list"
+            android:orientation="vertical"/>
+    <Button
+            android:id="@+id/widget_layout_button_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/widget_layout_button_add"
+            android:layout_below="@id/widget_layout_list"
             android:layout_marginTop="5dip"
             android:layout_marginLeft="20dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
-            android:orientation="vertical"/>
+            android:layout_alignParentRight="true"
+            android:text="@string/widget_layout_button_add"
+            android:background="@drawable/add_item"
+            android:visibility="gone"/>
 </RelativeLayout>

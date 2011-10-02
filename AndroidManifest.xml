@@ -23,5 +23,5 @@
 
     </application>
 
-
+     <uses-sdk android:targetSdkVersion="8" />
 </manifest> 
