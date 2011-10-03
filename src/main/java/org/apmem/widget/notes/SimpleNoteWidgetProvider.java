@@ -123,16 +123,30 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     }
 
     private void setOnDeleteItemClick(Context context, long itemId, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetProvider.class);
+        // Check settings:
+        boolean showDialog = true; // ToDo: some settings.
+
+        Intent newIntent;
+        if (showDialog) {
+            newIntent = new Intent(context, SimpleNoteWidgetItemDeleteActivity.class);
+        } else {
+            newIntent = new Intent(context, SimpleNoteWidgetProvider.class);
+            newIntent.setAction(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_DELETE_ITEM);
+        }
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        newIntent.setAction(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_DELETE_ITEM);
 
         // When intents are compared, the extras are ignored, so we need to embed the extras
         // into the data so that the extras will not be ignored.
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent;
+        if (showDialog) {
+            pendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        } else {
+            pendingIntent = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
+
         remoteViews.setOnClickPendingIntent(R.id.widget_layout_row_button_remove, pendingIntent);
     }
 

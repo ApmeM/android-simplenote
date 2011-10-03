@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_item_delete_header"
+            android:id="@+id/activity_item_delete_header"
+            />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/activity_item_delete_header"
+            android:id="@+id/activity_item_delete_item_name"
+            />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/activity_item_delete_item_name"
+            android:text="@string/activity_item_delete_button_commit"
+            android:id="@+id/activity_item_delete_button_commit"
+            android:onClick="onCommit"
+            android:background="@drawable/commit_item"
+            />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_toLeftOf="@id/activity_item_delete_button_commit"
+            android:layout_alignTop="@id/activity_item_delete_button_commit"
+            android:text="@string/activity_item_delete_button_cancel"
+            android:id="@+id/activity_item_delete_button_cancel"
+            android:onClick="onCancel"
+            android:background="@drawable/cancel_item"
+            />
+</RelativeLayout>
