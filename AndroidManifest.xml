@@ -5,15 +5,15 @@
           android:versionName="1.0">
     <application android:icon="@drawable/logo" android:label="@string/app_name">
         <activity android:name=".SimpleNoteWidgetListsActivity"
-                  android:label="@string/app_name"
+                  android:label="@string/activity_lists_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
-        <activity android:name=".SimpleNoteWidgetItemActivity"
-                  android:label="@string/app_name"
+        <activity android:name=".SimpleNoteWidgetItemAddActivity"
+                  android:label="@string/activity_item_add_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
         <activity android:name=".SimpleNoteWidgetItemDeleteActivity"
-                  android:label="@string/app_name"
+                  android:label="@string/activity_item_delete_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
         <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_2">

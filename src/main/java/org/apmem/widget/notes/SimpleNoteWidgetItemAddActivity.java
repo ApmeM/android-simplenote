@@ -23,8 +23,8 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
  * Time: 0:24
  * To change this template use File | Settings | File Templates.
  */
-public class SimpleNoteWidgetItemActivity extends Activity {
-    private static final String TAG = "SimpleNoteWidgetItemActivity";
+public class SimpleNoteWidgetItemAddActivity extends Activity {
+    private static final String TAG = "SimpleNoteWidgetItemAddActivity";
 
     private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
     private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
@@ -34,16 +34,16 @@ public class SimpleNoteWidgetItemActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item);
+        setContentView(R.layout.activity_item_add);
 
-        EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
+        EditText editText = (EditText) this.findViewById(R.id.activity_item_add_text);
 
         long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
         ListItemElement item = this.listsItemRepository.get(itemId);
         if (item != null) {
             editText.setText(item.getName());
         } else {
-            editText.setText("new item");
+            editText.setText("");
         }
         editText.requestFocus();
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -52,20 +52,22 @@ public class SimpleNoteWidgetItemActivity extends Activity {
     public void onCommit(View button) {
         Log.i(TAG, "onCommit");
 
-        EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
-        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+        EditText editText = (EditText) this.findViewById(R.id.activity_item_add_text);
         String name = editText.getText().toString();
-        int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-        ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
 
-        if(itemId == -1l){
-            this.listsItemRepository.add(name, widget.getListId());
-        }else{
-            this.listsItemRepository.update(itemId, name);
+        if (!name.trim().equals("")) {
+            long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+            int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+            ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
+
+            if (itemId == -1l) {
+                this.listsItemRepository.add(name, widget.getListId());
+            } else {
+                this.listsItemRepository.update(itemId, name);
+            }
+
+            this.refresher.updateList(this, widget.getListId());
         }
-
-        this.refresher.updateList(this, widget.getListId());
-
         this.finish();
     }
 

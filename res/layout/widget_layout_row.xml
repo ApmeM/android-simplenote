@@ -8,7 +8,6 @@
             android:layout_height="22dip"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dip"
-            android:layout_marginRight="20dip"
             android:id="@+id/widget_layout_row_button_edit"
             android:text="@string/widget_layout_row_button_edit"
             android:background="@drawable/edit_item"

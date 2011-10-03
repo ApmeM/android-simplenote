@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="WidgetTitle">
+    <style name="WidgetTitle">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
     <style name="WidgetText">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    
+
+    <style name="menu_button">
+        <item name="android:background">@drawable/menu_button_selector</item>
+        <item name="android:textColor">#E5D877</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">56dip</item>
+        <item name="android:layout_height">43dip</item>
+    </style>
 </resources>

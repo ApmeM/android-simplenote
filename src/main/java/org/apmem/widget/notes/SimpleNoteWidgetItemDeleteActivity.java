@@ -23,7 +23,7 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 * To change this template use File | Settings | File Templates.
 */
 public class SimpleNoteWidgetItemDeleteActivity extends Activity {
-   private static final String TAG = "SimpleNoteWidgetItemActivity";
+   private static final String TAG = "SimpleNoteWidgetItemAddActivity";
 
    private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
@@ -40,7 +40,7 @@ public class SimpleNoteWidgetItemDeleteActivity extends Activity {
        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
        ListItemElement item = this.listsItemRepository.get(itemId);
        if (item != null) {
-           textView.setText(item.getName());
+           textView.setText(String.format(this.getResources().getString(R.string.activity_item_delete_item_name), item.getName()));
        }
    }
 

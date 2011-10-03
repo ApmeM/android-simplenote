@@ -6,15 +6,17 @@
               android:orientation="vertical">
     <ListView android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_marginRight="5dip"
+              android:layout_marginBottom="5dip"
+              android:layout_marginLeft="5dip"
               android:id="@+id/activity_lists_list"/>
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="5dip"
             android:layout_below="@id/activity_lists_list"
             android:text="@string/activity_lists_button_add"
             android:id="@+id/activity_lists_button_add"
             android:onClick="addList"
-            android:background="@drawable/add_list"
+            style="@style/menu_button"
             />
 </RelativeLayout>

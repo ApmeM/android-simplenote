@@ -110,7 +110,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     }
 
     private void setOnEditItemClick(Context context, long itemId, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetItemActivity.class);
+        Intent newIntent = new Intent(context, SimpleNoteWidgetItemAddActivity.class);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
@@ -151,7 +151,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     }
 
     private void setOnAddItemClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetItemActivity.class);
+        Intent newIntent = new Intent(context, SimpleNoteWidgetItemAddActivity.class);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 

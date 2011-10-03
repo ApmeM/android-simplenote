@@ -45,10 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_layout_body"
-            android:layout_marginTop="5dip"
+            android:layout_marginTop="15dip"
             android:layout_marginLeft="20dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginBottom="0dip"
+            android:layout_marginRight="15dip"
             android:orientation="vertical"/>
     <Button
             android:id="@+id/widget_layout_button_add"
@@ -56,9 +55,7 @@
             android:layout_height="23dip"
             android:layout_below="@id/widget_layout_list"
             android:layout_marginTop="20dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="20dip"
-            android:layout_marginBottom="0dip"
+            android:layout_marginRight="15dip"
             android:layout_alignParentRight="true"
             android:text="@string/widget_layout_button_add"
             android:background="@drawable/add_item"

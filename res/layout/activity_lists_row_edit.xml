@@ -4,22 +4,18 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dip"
             android:text="@string/activity_lists_row_edit_button_commit"
             android:id="@+id/activity_lists_row_edit_button_commit"
-            android:background="@drawable/commit_list"
+            style="@style/menu_button"
             />
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/activity_lists_row_edit_button_commit"
             android:layout_marginLeft="5dip"
             android:text="@string/activity_lists_row_edit_button_cancel"
             android:id="@+id/activity_lists_row_edit_button_cancel"
-            android:background="@drawable/cancel_list"
+            style="@style/menu_button"
             />
     <EditText
             android:layout_width="fill_parent"

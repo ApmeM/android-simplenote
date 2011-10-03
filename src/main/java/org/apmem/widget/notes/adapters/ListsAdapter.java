@@ -1,5 +1,8 @@
 package org.apmem.widget.notes.adapters;
 
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,7 @@ import org.apmem.widget.notes.datastore.model.ListElement;
 public class ListsAdapter extends BaseAdapter {
     private ListsRepository listRepository;
     private LayoutInflater layoutInflater;
-    private long selectedListId;
+    private long selectedListId = -1;
 
     private View.OnClickListener onRemoveClickListener;
     private View.OnClickListener onEditClickListener;
@@ -79,9 +82,16 @@ public class ListsAdapter extends BaseAdapter {
             Button edit = (Button) v.findViewById(R.id.activity_lists_row_button_edit);
 
             if (textView != null) {
-                textView.setText(element.getName());
                 textView.setClickable(true);
                 textView.setOnClickListener(onItemClickListener);
+                if (selectedListId == element.getId()) {
+                    SpannableString stringUnderline = new SpannableString(element.getName());
+                    stringUnderline.setSpan(new UnderlineSpan(), 0, stringUnderline.length(), 0);
+                    textView.setText(stringUnderline);
+                    textView.setTypeface(Typeface.DEFAULT_BOLD);
+                } else {
+                    textView.setText(element.getName());
+                }
             }
             if (remove != null) {
                 remove.setOnClickListener(onRemoveClickListener);
@@ -91,13 +101,7 @@ public class ListsAdapter extends BaseAdapter {
             }
         }
 
-        if (selectedListId == element.getId()) {
-            v.setBackgroundResource(R.color.activity_lists_row_selected);
-        } else {
-            v.setBackgroundResource(R.color.activity_lists_row_normal);
-        }
-
-        if(onKeyboardRequestListener!= null){
+        if (onKeyboardRequestListener != null) {
             onKeyboardRequestListener.okKeyboardRequest(keyboardRequested);
         }
 
