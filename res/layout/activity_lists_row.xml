@@ -2,7 +2,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical">
     <Button
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5dip"
@@ -11,7 +12,6 @@
             style="@style/menu_button"
             />
     <Button
-
             android:layout_toLeftOf="@id/activity_lists_row_button_edit"
             android:layout_marginLeft="5dip"
             android:text="@string/activity_lists_row_button_remove"
@@ -20,8 +20,10 @@
             />
     <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:id="@+id/activity_lists_row_text"
             android:layout_toLeftOf="@id/activity_lists_row_button_remove"
+            android:layout_marginTop="10dip"
+            android:textSize="16sp"
             />
 </RelativeLayout>
