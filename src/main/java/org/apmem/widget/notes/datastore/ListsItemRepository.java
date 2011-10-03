@@ -20,7 +20,7 @@ public interface ListsItemRepository {
 
     void remove(long itemId);
 
-    void update(long itemId, String name);
+    void update(long itemId, String name, boolean done);
 
     ListItemElement get (long itemId);
 }

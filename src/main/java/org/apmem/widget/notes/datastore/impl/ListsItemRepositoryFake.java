@@ -52,10 +52,11 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     }
 
     @Override
-    public void update(long itemId, String name) {
+    public void update(long itemId, String name, boolean isDone) {
         ListItemElement element = this.get(itemId);
         if (element != null) {
             element.setName(name);
+            element.setDone(isDone);
         }
     }
 

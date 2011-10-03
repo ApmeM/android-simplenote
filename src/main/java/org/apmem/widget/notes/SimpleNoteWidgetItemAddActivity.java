@@ -57,13 +57,14 @@ public class SimpleNoteWidgetItemAddActivity extends Activity {
 
         if (!name.trim().equals("")) {
             long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+            ListItemElement item = this.listsItemRepository.get(itemId);
             int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
             ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
 
             if (itemId == -1l) {
                 this.listsItemRepository.add(name, widget.getListId());
             } else {
-                this.listsItemRepository.update(itemId, name);
+                this.listsItemRepository.update(item.getId(), name, item.isDone());
             }
 
             this.refresher.updateList(this, widget.getListId());

@@ -12,7 +12,6 @@ public class ListItemElement {
     private long listId;
     private String name;
     private boolean done;
-    private boolean edited = false;
 
     public boolean isDone() {
         return done;

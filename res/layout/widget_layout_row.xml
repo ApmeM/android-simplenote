@@ -25,5 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/widget_layout_row_button_remove"
             android:id="@+id/widget_layout_row_text"
+            android:clickable="true"
             />
 </RelativeLayout>
