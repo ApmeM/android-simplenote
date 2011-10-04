@@ -12,18 +12,10 @@
             android:text="@string/widget_layout_row_button_edit"
             android:background="@drawable/edit_item"
             />
-    <Button android:layout_width="23dip"
-            android:layout_height="23dip"
-            android:layout_toLeftOf="@id/widget_layout_row_button_edit"
-            android:layout_marginLeft="5dip"
-            android:id="@+id/widget_layout_row_button_remove"
-            android:text="@string/widget_layout_row_button_remove"
-            android:background="@drawable/remove_item"
-            />
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/widget_layout_row_button_remove"
+            android:layout_toLeftOf="@id/widget_layout_row_button_edit"
             android:id="@+id/widget_layout_row_text"
             android:clickable="true"
             />

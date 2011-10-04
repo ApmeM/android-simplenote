@@ -8,12 +8,8 @@
                   android:label="@string/activity_lists_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
-        <activity android:name=".SimpleNoteWidgetItemAddActivity"
-                  android:label="@string/activity_item_add_title"
-                  android:theme="@android:style/Theme.Dialog"
-                />
-        <activity android:name=".SimpleNoteWidgetItemDeleteActivity"
-                  android:label="@string/activity_item_delete_title"
+        <activity android:name=".SimpleNoteWidgetItemActivity"
+                  android:label="@string/activity_item_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
         <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_2">

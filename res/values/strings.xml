@@ -8,7 +8,6 @@
     <string name="widget_layout_body_no_items">Click on add button to add list items.</string>
     <string name="widget_layout_button_add"></string>
     <string name="widget_layout_row_button_edit"></string>
-    <string name="widget_layout_row_button_remove"></string>
 
     <string name="activity_lists_title">Manage lists</string>
     <string name="activity_lists_button_add">Add</string>
@@ -17,13 +16,10 @@
     <string name="activity_lists_row_edit_button_cancel">Cancel</string>
     <string name="activity_lists_row_edit_button_commit">Ok</string>
 
-    <string name="activity_item_add_title">Add / Edit list item</string>
-    <string name="activity_item_add_button_commit">Ok</string>
-    <string name="activity_item_add_button_cancel">Cancel</string>
-    <string name="activity_item_delete_title">Delete list item</string>
-    <string name="activity_item_delete_item_name">Delete %s?</string>
-    <string name="activity_item_delete_button_commit">Yes</string>
-    <string name="activity_item_delete_button_cancel">No</string>
+    <string name="activity_item_title">Add / Edit list item</string>
+    <string name="activity_item_button_commit">Ok</string>
+    <string name="activity_item_button_cancel">Cancel</string>
+    <string name="activity_item_button_delete">Delete</string>
 
     <string name="drawable_link_image_logo">http://www.iconfinder.com/icondetails/46774/32/add_notes_icon?r=1</string>
     <string name="drawable_link_image_add_list">http://www.iconfinder.com/icondetails/32378/32/</string>
