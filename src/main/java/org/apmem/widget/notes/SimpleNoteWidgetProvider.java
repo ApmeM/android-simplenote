@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -58,23 +59,30 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         Bundle extras = intent.getExtras();
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
+            Resources resources = context.getResources();
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
             ListWidgetElement widgetElement = this.listsWidgetRepository.get(appWidgetId);
             remoteViews.removeAllViews(R.id.widget_layout_list);
 
             if (widgetElement != null) {
                 ListElement element = this.listRepository.get(widgetElement.getListId());
-                remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
                 List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
-
                 for (ListItemElement item : listItems) {
                     this.addItem(context, appWidgetId, remoteViews, item);
                 }
 
-                remoteViews.setViewVisibility(R.id.widget_layout_body, View.GONE);
-                remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
+                remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
+                remoteViews.setTextViewText(R.id.widget_layout_body, resources.getString(R.string.widget_layout_body_no_items));
+                if (listItems.size() == 0) {
+                    remoteViews.setViewVisibility(R.id.widget_layout_body, View.VISIBLE);
+                    remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
+                } else {
+                    remoteViews.setViewVisibility(R.id.widget_layout_body, View.GONE);
+                    remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
+                }
             } else {
-                remoteViews.setTextViewText(R.id.widget_layout_title, context.getResources().getString(R.string.widget_layout_title));
+                remoteViews.setTextViewText(R.id.widget_layout_title, resources.getString(R.string.widget_layout_title));
+                remoteViews.setTextViewText(R.id.widget_layout_body, resources.getString(R.string.widget_layout_body));
                 remoteViews.setViewVisibility(R.id.widget_layout_body, View.VISIBLE);
                 remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.GONE);
             }

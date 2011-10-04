@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import org.apmem.widget.notes.adapters.ListsAdapter;
-import org.apmem.widget.notes.adapters.OnKeyboardRequestListener;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
@@ -50,7 +48,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         setContentView(R.layout.activity_lists);
 
         LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ListView listView = (ListView) this.findViewById(R.id.activity_lists_list);
+        final ListView listView = (ListView) this.findViewById(R.id.activity_lists_list);
 
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         ListWidgetElement element = this.listsWidgetRepository.get(appWidgetId);
@@ -95,16 +93,6 @@ public class SimpleNoteWidgetListsActivity extends Activity {
                 select(view);
             }
         });
-        this.adapter.setOnKeyboardRequestListener(new OnKeyboardRequestListener() {
-            @Override
-            public void okKeyboardRequest(boolean show) {
-                if (show) {
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                } else {
-                    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-                }
-            }
-        });
 
         listView.setAdapter(this.adapter);
     }
@@ -133,17 +121,25 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         element.setEdited(false);
         RelativeLayout parent = (RelativeLayout) button.getParent();
         EditText text = (EditText) parent.findViewById(R.id.activity_lists_row_edit_text);
-        this.listsRepository.update(element.getId(), text.getText().toString());
-        this.adapter.notifyDataSetChanged();
+        if (text.getText().toString().equals("")) {
+            remove(button);
+        } else {
+            this.listsRepository.update(element.getId(), text.getText().toString());
+            this.adapter.notifyDataSetChanged();
 
-        this.refresher.updateList(this, element.getId());
+            this.refresher.updateList(this, element.getId());
+        }
     }
 
     private void cancel(View button) {
         Log.i(TAG, "cancel");
         ListElement element = this.findElement(button);
         element.setEdited(false);
-        this.adapter.notifyDataSetChanged();
+        if (element.getName().equals("")) {
+            remove(button);
+        } else {
+            this.adapter.notifyDataSetChanged();
+        }
     }
 
     private void edit(View button) {
@@ -174,11 +170,8 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     public void addList(View button) {
         Log.i(TAG, "addList");
-        long listId = this.listsRepository.add("Set name");
+        long listId = this.listsRepository.add("");
         this.adapter.notifyDataSetChanged();
-
-        listsItemRepository.add("test1", listId);
-        listsItemRepository.add("test2", listId);
     }
 
     private ListElement findElement(View control) {

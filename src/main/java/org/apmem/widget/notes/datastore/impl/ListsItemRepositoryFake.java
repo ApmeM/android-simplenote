@@ -14,7 +14,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListsItemRepositoryFake implements ListsItemRepository {
-   private static List<ListItemElement> listElements = new ArrayList<ListItemElement>();
+    private static List<ListItemElement> listElements = new ArrayList<ListItemElement>();
 
 
     @Override
@@ -55,6 +55,14 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     public void update(long itemId, String name, boolean isDone) {
         ListItemElement element = this.get(itemId);
         if (element != null) {
+            if (element.isDone() != isDone) {
+                listElements.remove(element);
+                if (isDone) {
+                    listElements.add(element);
+                } else {
+                    listElements.add(0, element);
+                }
+            }
             element.setName(name);
             element.setDone(isDone);
         }
@@ -68,4 +76,5 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
             }
         }
         return null;
-    }}
+    }
+}

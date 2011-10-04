@@ -5,7 +5,6 @@
                 android:layout_height="fill_parent"
                 android:focusable="true"
                 android:background="@drawable/widget_2_2">
-
     <ImageView
             android:id="@+id/widget_layout_logo"
             android:layout_width="wrap_content"
@@ -15,7 +14,6 @@
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
             android:src="@drawable/logo"/>
-
     <TextView
             android:id="@+id/widget_layout_title"
             android:layout_width="wrap_content"
@@ -25,10 +23,8 @@
             android:layout_marginLeft="0dip"
             android:layout_marginRight="10dip"
             android:layout_marginBottom="0dip"
-
             android:text="@string/widget_layout_title"
             style="@style/WidgetTitle"/>
-
     <TextView
             android:id="@+id/widget_layout_body"
             android:layout_width="wrap_content"
