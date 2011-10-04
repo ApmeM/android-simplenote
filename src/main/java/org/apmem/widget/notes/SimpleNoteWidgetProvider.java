@@ -42,9 +42,9 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
 
-            this.setOnSelectListIconClick(context, appWidgetId, remoteViews);
-
-            this.setOnAddItemClick(context, appWidgetId, remoteViews);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_logo);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_body);
+            this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_button_add);
 
             this.updateWidget(context, appWidgetId, remoteViews);
         }
@@ -113,11 +113,12 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
             text = stringUnderline;
         }
 
+        long itemId = item.getId();
         RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row_2_2);
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
-        this.setOnEditItemClick(context, item.getId(), appWidgetId, newView);
-        this.setOnReadyItemClick(context, item.getId(), appWidgetId, newView);
+        this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
+        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, remoteViews, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
     }
 
     private void updateWidget(Context context, int appWidgetId, RemoteViews remoteViews) {
@@ -125,59 +126,30 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews);
     }
 
-    private void setOnEditItemClick(Context context, long itemId, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetItemActivity.class);
+    private void setEventActivity(Context context, Class receiverClass, RemoteViews remoteViews, int appWidgetId, long itemId, int senderId) {
+        Intent newIntent = new Intent(context, receiverClass);
+        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
-        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
         // When intents are compared, the extras are ignored, so we need to embed the extras
         // into the data so that the extras will not be ignored.
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget_layout_row_button_edit, pendingIntent);
+        PendingIntent pendingIntentLogo = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
     }
 
-    private void setOnReadyItemClick(Context context, long itemId, int appWidgetId, RemoteViews remoteViews) {
-        // Check settings:
-        Intent newIntent;
-        newIntent = new Intent(context, SimpleNoteWidgetProvider.class);
-        newIntent.setAction(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM);
+    private void setEventBroadcast(Context context, Class receiverClass, RemoteViews remoteViews, String action, int appWidgetId, long itemId, int senderId) {
+        Intent newIntent = new Intent(context, receiverClass);
+        newIntent.setAction(action);
+        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
-        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
         // When intents are compared, the extras are ignored, so we need to embed the extras
         // into the data so that the extras will not be ignored.
         newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        PendingIntent pendingIntent;
-        pendingIntent = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        remoteViews.setOnClickPendingIntent(R.id.widget_layout_row_text, pendingIntent);
-    }
-
-    private void setOnAddItemClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetItemActivity.class);
-        newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
-        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-
-        // When intents are compared, the extras are ignored, so we need to embed the extras
-        // into the data so that the extras will not be ignored.
-        newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget_layout_button_add, pendingIntent);
-    }
-
-    private void setOnSelectListIconClick(Context context, int appWidgetId, RemoteViews remoteViews) {
-        Intent newIntent = new Intent(context, SimpleNoteWidgetListsActivity.class);
-        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-
-        // When intents are compared, the extras are ignored, so we need to embed the extras
-        // into the data so that the extras will not be ignored.
-        newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.widget_layout_logo, pendingIntent);
+        PendingIntent pendingIntentLogo = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
     }
 }
