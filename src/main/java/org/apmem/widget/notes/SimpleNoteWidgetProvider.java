@@ -117,8 +117,8 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row_2_2);
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
-        this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
-        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, remoteViews, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
+        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
     }
 
     private void updateWidget(Context context, int appWidgetId, RemoteViews remoteViews) {
