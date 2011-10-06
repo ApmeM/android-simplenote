@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface ListsItemRepository {
 
-    List<ListItemElement> list();
     List<ListItemElement> list(long listId);
 
     long add(String name, long listId);

@@ -1,4 +1,4 @@
-package org.apmem.widget.notes.datastore.impl;
+package org.apmem.widget.notes.datastore.impl.memory;
 
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
@@ -15,12 +15,6 @@ import java.util.List;
  */
 public class ListsItemRepositoryFake implements ListsItemRepository {
     private List<ListItemElement> listElements = new ArrayList<ListItemElement>();
-
-
-    @Override
-    public List<ListItemElement> list() {
-        return this.listElements;
-    }
 
     @Override
     public List<ListItemElement> list(long listId) {

@@ -1,4 +1,4 @@
-package org.apmem.widget.notes.datastore.impl;
+package org.apmem.widget.notes.datastore.impl.memory;
 
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
@@ -40,10 +40,11 @@ public class ListsRepositoryFake implements ListsRepository {
     }
 
     @Override
-    public void update(long id, String name) {
+    public void update(long id, String name, boolean edited) {
         ListElement element = this.get(id);
         if (element != null) {
             element.setName(name);
+            element.setEdited(edited);
         }
     }
 

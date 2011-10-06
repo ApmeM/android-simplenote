@@ -17,9 +17,9 @@ public interface ListsRepository {
 
     long add(String name);
 
-    void remove(long id);
+    void remove(long listId);
 
-    void update(long id, String name);
+    void update(long listId, String name, boolean edited);
 
     ListElement get(long listId);
 }

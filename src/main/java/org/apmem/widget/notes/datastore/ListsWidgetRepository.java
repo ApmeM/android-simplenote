@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface ListsWidgetRepository {
 
-    List<ListWidgetElement> list();
     List<ListWidgetElement> list(long listId);
 
     long add(int widgetId, long listId);

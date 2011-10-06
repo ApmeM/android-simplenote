@@ -3,9 +3,9 @@ package org.apmem.widget.notes;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
-import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
-import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.memory.ListsItemRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.memory.ListsRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.memory.ListsWidgetRepositoryFake;
 import org.apmem.widget.notes.refresh.Refresher;
 import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
