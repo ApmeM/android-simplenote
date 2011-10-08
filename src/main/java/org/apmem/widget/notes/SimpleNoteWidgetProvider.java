@@ -52,7 +52,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
-        RepositoryFactory factory = Constants.getCurrentRepositoryFactory(context);
+        RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(context);
         ListsRepository listsRepository = factory.getListRepository();
         ListsItemRepository listsItemRepository = factory.getListsItemRepository();
         ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();

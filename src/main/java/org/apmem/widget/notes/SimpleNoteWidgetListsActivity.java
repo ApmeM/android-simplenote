@@ -33,7 +33,7 @@ import java.util.List;
 public class SimpleNoteWidgetListsActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetListsActivity";
 
-    private RepositoryFactory factory = Constants.getCurrentRepositoryFactory(this);
+    private RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(this);
     private ListsRepository listsRepository = factory.getListRepository();
     private ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
     private ListsItemRepository listsItemRepository = factory.getListsItemRepository();

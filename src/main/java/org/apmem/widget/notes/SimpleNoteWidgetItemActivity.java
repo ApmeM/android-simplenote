@@ -26,7 +26,7 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 public class SimpleNoteWidgetItemActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetItemActivity";
 
-    private RepositoryFactory factory = Constants.getCurrentRepositoryFactory(this);
+    private RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(this);
     private ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
     private ListsItemRepository listsItemRepository = factory.getListsItemRepository();
     private Refresher refresher = new RefresherFromActivity(factory);
