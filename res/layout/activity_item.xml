@@ -25,6 +25,13 @@
                 />
         <Button
                 android:layout_marginLeft="5dip"
+                android:text="@string/activity_item_button_next"
+                android:id="@+id/activity_item_button_next"
+                android:onClick="onNext"
+                style="@style/menu_button"
+                />
+        <Button
+                android:layout_marginLeft="5dip"
                 android:text="@string/activity_item_button_commit"
                 android:id="@+id/activity_item_button_commit"
                 android:onClick="onCommit"
