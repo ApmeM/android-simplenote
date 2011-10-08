@@ -16,22 +16,22 @@ import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
  * To change this template use File | Settings | File Templates.
  */
 public class RepositoryFactoryFake implements RepositoryFactory{
-    private static ListsRepository listsRepository = new ListsRepositoryFake();
-    private static ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private static ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
+    private ListsRepository listsRepository = new ListsRepositoryFake();
+    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
+    private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
 
     @Override
     public ListsRepository getListRepository() {
-        return listsRepository;
+        return this.listsRepository;
     }
 
     @Override
     public ListsItemRepository getListsItemRepository() {
-        return listsItemRepository;
+        return this.listsItemRepository;
     }
 
     @Override
     public ListsWidgetRepository getListsWidgetRepository() {
-        return listsWidgetRepository;
+        return this.listsWidgetRepository;
     }
 }

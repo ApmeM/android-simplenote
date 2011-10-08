@@ -20,7 +20,6 @@ import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
-import org.apmem.widget.notes.datastore.repositoryFactory.RepositoryFactoryFake;
 import org.apmem.widget.notes.refresh.Refresher;
 import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
@@ -28,7 +27,6 @@ import java.util.List;
 
 public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "SimpleNoteWidgetProvider";
-
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -54,7 +52,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
-        RepositoryFactory factory = new RepositoryFactoryFake();
+        RepositoryFactory factory = Constants.getCurrentRepositoryFactory(context);
         ListsRepository listsRepository = factory.getListRepository();
         ListsItemRepository listsItemRepository = factory.getListsItemRepository();
         ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
