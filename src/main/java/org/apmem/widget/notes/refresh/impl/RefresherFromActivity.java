@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import org.apmem.widget.notes.Constants;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
+import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
 
@@ -18,10 +19,10 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class RefresherFromActivity implements Refresher {
-    private ListsWidgetRepository listsWidgetRepository;
+    private RepositoryFactory repositoryFactory;
 
-    public RefresherFromActivity(ListsWidgetRepository listsWidgetRepository) {
-        this.listsWidgetRepository = listsWidgetRepository;
+    public RefresherFromActivity(RepositoryFactory repositoryFactory) {
+        this.repositoryFactory = repositoryFactory;
     }
 
     @Override
@@ -33,7 +34,8 @@ public class RefresherFromActivity implements Refresher {
 
     @Override
     public void updateList(Context context, long listId) {
-        List<ListWidgetElement> listWidgetElement = this.listsWidgetRepository.list(listId);
+        ListsWidgetRepository listsWidgetRepository = this.repositoryFactory.getListsWidgetRepository();
+        List<ListWidgetElement> listWidgetElement = listsWidgetRepository.list(listId);
         for (ListWidgetElement widgetElement : listWidgetElement) {
             this.updateWidget(context, widgetElement.getWidgetId());
         }

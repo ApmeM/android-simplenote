@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
-import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
+import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
+import org.apmem.widget.notes.datastore.repositoryFactory.RepositoryFactoryFake;
 import org.apmem.widget.notes.refresh.Refresher;
 import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
@@ -27,9 +27,10 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 public class SimpleNoteWidgetItemActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetItemActivity";
 
-    private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
-    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private Refresher refresher = new RefresherFromActivity(listsWidgetRepository);
+    private RepositoryFactory factory = new RepositoryFactoryFake();
+    private ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
+    private ListsItemRepository listsItemRepository = factory.getListsItemRepository();
+    private Refresher refresher = new RefresherFromActivity(factory);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -14,18 +14,18 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
-    private static List<ListWidgetElement> listElements = new ArrayList<ListWidgetElement>();
+    private List<ListWidgetElement> listElements = new ArrayList<ListWidgetElement>();
 
 
     @Override
     public List<ListWidgetElement> list() {
-        return listElements;
+        return this.listElements;
     }
 
     @Override
     public List<ListWidgetElement> list(long listId) {
         List<ListWidgetElement> result = new ArrayList<ListWidgetElement>();
-        for (ListWidgetElement element : listElements) {
+        for (ListWidgetElement element : this.listElements) {
             if (element.getListId() == listId) {
                 result.add(element);
             }
@@ -38,8 +38,8 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
         ListWidgetElement listElement = new ListWidgetElement();
         listElement.setListId(listId);
         listElement.setWidgetId(widgetId);
-        listElement.setId(listElements.size());
-        listElements.add(listElement);
+        listElement.setId(this.listElements.size());
+        this.listElements.add(listElement);
         return listElement.getId();
     }
 
@@ -47,7 +47,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
     public void remove(int widgetId) {
         ListWidgetElement element = this.get(widgetId);
         if (element != null) {
-            listElements.remove(element);
+            this.listElements.remove(element);
         }
     }
 
@@ -61,7 +61,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
 
     @Override
     public ListWidgetElement get(int widgetId) {
-        for (ListWidgetElement element : listElements) {
+        for (ListWidgetElement element : this.listElements) {
             if (element.getWidgetId() == widgetId) {
                 return element;
             }

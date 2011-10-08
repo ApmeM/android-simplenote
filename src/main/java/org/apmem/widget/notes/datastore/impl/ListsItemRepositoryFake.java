@@ -14,18 +14,18 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListsItemRepositoryFake implements ListsItemRepository {
-    private static List<ListItemElement> listElements = new ArrayList<ListItemElement>();
+    private List<ListItemElement> listElements = new ArrayList<ListItemElement>();
 
 
     @Override
     public List<ListItemElement> list() {
-        return listElements;
+        return this.listElements;
     }
 
     @Override
     public List<ListItemElement> list(long listId) {
         List<ListItemElement> result = new ArrayList<ListItemElement>();
-        for (ListItemElement element : listElements) {
+        for (ListItemElement element : this.listElements) {
             if (element.getListId() == listId) {
                 result.add(element);
             }
@@ -38,8 +38,8 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
         ListItemElement listElement = new ListItemElement();
         listElement.setListId(listId);
         listElement.setName(name);
-        listElement.setId(listElements.size());
-        listElements.add(listElement);
+        listElement.setId(this.listElements.size());
+        this.listElements.add(listElement);
         return listElement.getId();
     }
 
@@ -47,7 +47,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     public void remove(long itemId) {
         ListItemElement element = this.get(itemId);
         if (element != null) {
-            listElements.remove(element);
+            this.listElements.remove(element);
         }
     }
 
@@ -56,11 +56,11 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
         ListItemElement element = this.get(itemId);
         if (element != null) {
             if (element.isDone() != isDone) {
-                listElements.remove(element);
+                this.listElements.remove(element);
                 if (isDone) {
-                    listElements.add(element);
+                    this.listElements.add(element);
                 } else {
-                    listElements.add(0, element);
+                    this.listElements.add(0, element);
                 }
             }
             element.setName(name);
@@ -70,7 +70,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
 
     @Override
     public ListItemElement get(long itemId) {
-        for (ListItemElement element : listElements) {
+        for (ListItemElement element : this.listElements) {
             if (element.getId() == itemId) {
                 return element;
             }

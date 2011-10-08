@@ -14,11 +14,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class ListsRepositoryFake implements ListsRepository {
-    private static List<ListElement> listElements = new ArrayList<ListElement>();
+    private List<ListElement> listElements = new ArrayList<ListElement>();
 
     @Override
     public List<ListElement> list() {
-        return listElements;
+        return this.listElements;
     }
 
     @Override
@@ -26,8 +26,8 @@ public class ListsRepositoryFake implements ListsRepository {
         ListElement listElement = new ListElement();
         listElement.setName(name);
         listElement.setEdited(true);
-        listElement.setId(listElements.size());
-        listElements.add(listElement);
+        listElement.setId(this.listElements.size());
+        this.listElements.add(listElement);
         return listElement.getId();
     }
 
@@ -35,7 +35,7 @@ public class ListsRepositoryFake implements ListsRepository {
     public void remove(long id) {
         ListElement element = this.get(id);
         if (element != null) {
-            listElements.remove(element);
+            this.listElements.remove(element);
         }
     }
 
@@ -49,7 +49,7 @@ public class ListsRepositoryFake implements ListsRepository {
 
     @Override
     public ListElement get(long listId) {
-        for (ListElement element : listElements) {
+        for (ListElement element : this.listElements) {
             if (element.getId() == listId) {
                 return element;
             }

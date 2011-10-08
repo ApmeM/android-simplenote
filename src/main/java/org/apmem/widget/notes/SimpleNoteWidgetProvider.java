@@ -16,12 +16,11 @@ import android.widget.RemoteViews;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
-import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
-import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
+import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
+import org.apmem.widget.notes.datastore.repositoryFactory.RepositoryFactoryFake;
 import org.apmem.widget.notes.refresh.Refresher;
 import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
@@ -29,10 +28,7 @@ import java.util.List;
 
 public class SimpleNoteWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "SimpleNoteWidgetProvider";
-    private ListsRepository listRepository = new ListsRepositoryFake();
-    private ListsItemRepository listsItemRepository = new ListsItemRepositoryFake();
-    private ListsWidgetRepository listsWidgetRepository = new ListsWidgetRepositoryFake();
-    private Refresher refresher = new RefresherFromActivity(listsWidgetRepository);
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -58,15 +54,21 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
+        RepositoryFactory factory = new RepositoryFactoryFake();
+        ListsRepository listsRepository = factory.getListRepository();
+        ListsItemRepository listsItemRepository = factory.getListsItemRepository();
+        ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
+        Refresher refresher = new RefresherFromActivity(factory);
+
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             Resources resources = context.getResources();
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-            ListWidgetElement widgetElement = this.listsWidgetRepository.get(appWidgetId);
+            ListWidgetElement widgetElement = listsWidgetRepository.get(appWidgetId);
             remoteViews.removeAllViews(R.id.widget_layout_list);
 
             if (widgetElement != null) {
-                ListElement element = this.listRepository.get(widgetElement.getListId());
-                List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
+                ListElement element = listsRepository.get(widgetElement.getListId());
+                List<ListItemElement> listItems = listsItemRepository.list(element.getId());
                 for (ListItemElement item : listItems) {
                     this.addItem(context, appWidgetId, remoteViews, item);
                 }
@@ -90,15 +92,15 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
             long itemId = extras.getLong(Constants.INTENT_EXTRA_WIDGET_ITEM_ID);
-            ListItemElement item = this.listsItemRepository.get(itemId);
+            ListItemElement item = listsItemRepository.get(itemId);
             if (item != null) {
-                this.listsItemRepository.update(item.getId(), item.getName(), !item.isDone());
-                this.refresher.updateList(context, item.getListId());
+                listsItemRepository.update(item.getId(), item.getName(), !item.isDone());
+                refresher.updateList(context, item.getListId());
             }
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(AppWidgetManager.ACTION_APPWIDGET_DELETED)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-            this.listsWidgetRepository.remove(appWidgetId);
+            listsWidgetRepository.remove(appWidgetId);
             super.onReceive(context, intent);
         } else {
             super.onReceive(context, intent);
