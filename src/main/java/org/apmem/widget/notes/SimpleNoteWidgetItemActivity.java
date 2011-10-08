@@ -39,15 +39,18 @@ public class SimpleNoteWidgetItemActivity extends Activity {
 
         EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
         Button deleteButton = (Button) this.findViewById(R.id.activity_item_button_delete);
+        Button nextButton = (Button) this.findViewById(R.id.activity_item_button_next);
 
         long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
         ListItemElement item = this.listsItemRepository.get(itemId);
         if (item != null) {
             editText.setText(item.getName());
             deleteButton.setVisibility(View.VISIBLE);
+            nextButton.setVisibility(View.GONE);
         } else {
             editText.setText("");
-            deleteButton.setVisibility(View.INVISIBLE);
+            deleteButton.setVisibility(View.GONE);
+            nextButton.setVisibility(View.VISIBLE);
         }
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
@@ -58,6 +61,22 @@ public class SimpleNoteWidgetItemActivity extends Activity {
         EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
         String name = editText.getText().toString();
 
+        saveItem(name);
+        this.finish();
+    }
+
+
+    public void onNext(View button) {
+        Log.i(TAG, "onNext");
+
+        EditText editText = (EditText) this.findViewById(R.id.activity_item_text);
+        String name = editText.getText().toString();
+
+        saveItem(name);
+        editText.setText("");
+    }
+
+    private void saveItem(String name) {
         if (!name.trim().equals("")) {
             long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
             ListItemElement item = this.listsItemRepository.get(itemId);
@@ -72,7 +91,6 @@ public class SimpleNoteWidgetItemActivity extends Activity {
 
             this.refresher.updateList(this, widget.getListId());
         }
-        this.finish();
     }
 
     public void onCancel(View button) {

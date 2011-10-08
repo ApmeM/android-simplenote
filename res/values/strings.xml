@@ -19,6 +19,7 @@
     <string name="activity_item_title">Add / Edit list item</string>
     <string name="activity_item_button_commit">Ok</string>
     <string name="activity_item_button_cancel">Cancel</string>
+    <string name="activity_item_button_next">Next</string>
     <string name="activity_item_button_delete">Delete</string>
 
     <string name="drawable_link_image_logo">http://www.iconfinder.com/icondetails/46774/32/add_notes_icon?r=1</string>
