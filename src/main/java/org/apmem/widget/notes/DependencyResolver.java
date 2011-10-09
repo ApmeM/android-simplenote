@@ -17,10 +17,10 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
  * To change this template use File | Settings | File Templates.
  */
 public class DependencyResolver {
-    private static ListsRepository currentListsRepository = new ListsRepositoryFake();
-    private static ListsItemRepository currentListsItemRepository = new ListsItemRepositoryFake();
-    private static ListsWidgetRepository currentListsWidgetRepository = new ListsWidgetRepositoryFake();
-    private static Refresher currentRefresher = new RefresherFromActivity(currentListsWidgetRepository);
+    private static ListsRepository currentListsRepository;
+    private static ListsItemRepository currentListsItemRepository;
+    private static ListsWidgetRepository currentListsWidgetRepository;
+    private static Refresher currentRefresher;
 
     public static ListsRepository getListRepository() {
         if (currentListsRepository == null)
