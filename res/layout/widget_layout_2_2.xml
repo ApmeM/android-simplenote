@@ -47,13 +47,9 @@
             android:orientation="vertical"/>
     <Button
             android:id="@+id/widget_layout_button_add"
-            android:layout_width="23dip"
-            android:layout_height="23dip"
-            android:layout_below="@id/widget_layout_list"
-            android:layout_marginTop="20dip"
-            android:layout_marginRight="15dip"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:text="@string/widget_layout_button_add"
-            android:background="@drawable/add_item"
+            style="@style/menu_button"
             android:visibility="gone"/>
 </RelativeLayout>
