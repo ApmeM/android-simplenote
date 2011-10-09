@@ -1,7 +1,6 @@
 package org.apmem.widget.notes.datastore.impl.database;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import org.apmem.widget.notes.datastore.ListsRepository;
@@ -21,8 +20,8 @@ import java.util.List;
 public class ListsRepositoryDatabase implements ListsRepository {
     private DataSourceOpenHelper helper;
 
-    public ListsRepositoryDatabase(Context context) {
-        this.helper = new DataSourceOpenHelper(context);
+    public ListsRepositoryDatabase(DataSourceOpenHelper helper) {
+        this.helper = helper;
     }
 
     @Override

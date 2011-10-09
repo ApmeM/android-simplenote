@@ -31,10 +31,10 @@ import java.util.List;
 public class SimpleNoteWidgetListsActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetListsActivity";
 
-    private ListsRepository listsRepository = DependencyResolver.getListRepository();
-    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
-    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
-    private Refresher refresher = DependencyResolver.getCurrentRefresher();
+    private ListsRepository listsRepository = DependencyResolver.getListRepository(this);
+    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository(this);
+    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(this);
+    private Refresher refresher = DependencyResolver.getCurrentRefresher(this);
     private ListsAdapter adapter;
 
     @Override

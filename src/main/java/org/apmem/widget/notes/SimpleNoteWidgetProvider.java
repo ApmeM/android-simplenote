@@ -50,10 +50,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
-        ListsRepository listsRepository = DependencyResolver.getListRepository();
-        ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
-        ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
-        Refresher refresher = DependencyResolver.getCurrentRefresher();
+        ListsRepository listsRepository = DependencyResolver.getListRepository(context);
+        ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(context);
+        ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository(context);
+        Refresher refresher = DependencyResolver.getCurrentRefresher(context);
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             Resources resources = context.getResources();

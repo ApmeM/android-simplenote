@@ -24,9 +24,9 @@ import org.apmem.widget.notes.refresh.Refresher;
 public class SimpleNoteWidgetItemActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetItemActivity";
 
-    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
-    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
-    private Refresher refresher = DependencyResolver.getCurrentRefresher();
+    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository(this);
+    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(this);
+    private Refresher refresher = DependencyResolver.getCurrentRefresher(this);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
