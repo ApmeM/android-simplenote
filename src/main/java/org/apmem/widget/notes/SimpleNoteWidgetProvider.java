@@ -16,12 +16,10 @@ import android.widget.RemoteViews;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
-import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 import java.util.List;
 
@@ -52,11 +50,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
-        RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(context);
-        ListsRepository listsRepository = factory.getListRepository();
-        ListsItemRepository listsItemRepository = factory.getListsItemRepository();
-        ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
-        Refresher refresher = new RefresherFromActivity(factory);
+        ListsRepository listsRepository = DependencyResolver.getListRepository();
+        ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
+        ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
+        Refresher refresher = DependencyResolver.getCurrentRefresher();
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             Resources resources = context.getResources();

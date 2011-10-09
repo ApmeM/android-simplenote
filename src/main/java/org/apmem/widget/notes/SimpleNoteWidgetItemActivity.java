@@ -10,11 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
-import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,10 +24,9 @@ import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 public class SimpleNoteWidgetItemActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetItemActivity";
 
-    private RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(this);
-    private ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
-    private ListsItemRepository listsItemRepository = factory.getListsItemRepository();
-    private Refresher refresher = new RefresherFromActivity(factory);
+    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
+    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
+    private Refresher refresher = DependencyResolver.getCurrentRefresher();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -1,8 +1,13 @@
 package org.apmem.widget.notes;
 
-import android.content.Context;
-import org.apmem.widget.notes.datastore.RepositoryFactory;
-import org.apmem.widget.notes.datastore.repositoryFactory.RepositoryFactoryFake;
+import org.apmem.widget.notes.datastore.ListsItemRepository;
+import org.apmem.widget.notes.datastore.ListsRepository;
+import org.apmem.widget.notes.datastore.ListsWidgetRepository;
+import org.apmem.widget.notes.datastore.impl.ListsItemRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.ListsRepositoryFake;
+import org.apmem.widget.notes.datastore.impl.ListsWidgetRepositoryFake;
+import org.apmem.widget.notes.refresh.Refresher;
+import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,12 +17,34 @@ import org.apmem.widget.notes.datastore.repositoryFactory.RepositoryFactoryFake;
  * To change this template use File | Settings | File Templates.
  */
 public class DependencyResolver {
-    private static RepositoryFactory currentRepositoryFactory = null;
+    private static ListsRepository currentListsRepository = new ListsRepositoryFake();
+    private static ListsItemRepository currentListsItemRepository = new ListsItemRepositoryFake();
+    private static ListsWidgetRepository currentListsWidgetRepository = new ListsWidgetRepositoryFake();
+    private static Refresher currentRefresher = new RefresherFromActivity(currentListsWidgetRepository);
 
-    public static RepositoryFactory getCurrentRepositoryFactory(Context context) {
-        if (currentRepositoryFactory == null)
-            currentRepositoryFactory = new RepositoryFactoryFake();
+    public static ListsRepository getListRepository() {
+        if (currentListsRepository == null)
+            currentListsRepository = new ListsRepositoryFake();
+        return currentListsRepository;
+    }
 
-        return currentRepositoryFactory;
+    public static ListsItemRepository getListsItemRepository() {
+        if (currentListsItemRepository == null)
+            currentListsItemRepository = new ListsItemRepositoryFake();
+        return currentListsItemRepository;
+    }
+
+    public static ListsWidgetRepository getListsWidgetRepository() {
+        if (currentListsWidgetRepository == null)
+            currentListsWidgetRepository = new ListsWidgetRepositoryFake();
+        return currentListsWidgetRepository;
+    }
+
+    public static Refresher getCurrentRefresher() {
+        if (currentRefresher == null) {
+            ListsWidgetRepository listsWidgetRepository = getListsWidgetRepository();
+            currentRefresher = new RefresherFromActivity(listsWidgetRepository);
+        }
+        return currentRefresher;
     }
 }

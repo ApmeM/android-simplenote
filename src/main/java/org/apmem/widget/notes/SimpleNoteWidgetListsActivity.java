@@ -14,12 +14,10 @@ import org.apmem.widget.notes.adapters.ListsAdapter;
 import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
-import org.apmem.widget.notes.datastore.RepositoryFactory;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
-import org.apmem.widget.notes.refresh.impl.RefresherFromActivity;
 
 import java.util.List;
 
@@ -33,11 +31,10 @@ import java.util.List;
 public class SimpleNoteWidgetListsActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetListsActivity";
 
-    private RepositoryFactory factory = DependencyResolver.getCurrentRepositoryFactory(this);
-    private ListsRepository listsRepository = factory.getListRepository();
-    private ListsWidgetRepository listsWidgetRepository = factory.getListsWidgetRepository();
-    private ListsItemRepository listsItemRepository = factory.getListsItemRepository();
-    private Refresher refresher = new RefresherFromActivity(factory);
+    private ListsRepository listsRepository = DependencyResolver.getListRepository();
+    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
+    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
+    private Refresher refresher = DependencyResolver.getCurrentRefresher();
     private ListsAdapter adapter;
 
     @Override
