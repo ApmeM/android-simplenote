@@ -31,10 +31,10 @@ import java.util.List;
 public class SimpleNoteWidgetListsActivity extends Activity {
     private static final String TAG = "SimpleNoteWidgetListsActivity";
 
-    private ListsRepository listsRepository = DependencyResolver.getListRepository();
-    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
-    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
-    private Refresher refresher = DependencyResolver.getCurrentRefresher();
+    private ListsRepository listsRepository = DependencyResolver.getListRepository(this);
+    private ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository(this);
+    private ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(this);
+    private Refresher refresher = DependencyResolver.getCurrentRefresher(this);
     private ListsAdapter adapter;
 
     @Override
@@ -49,7 +49,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         ListWidgetElement element = this.listsWidgetRepository.get(appWidgetId);
 
-        this.adapter = new ListsAdapter(listsRepository, layoutInflater);
+        this.adapter = new ListsAdapter(this.listsRepository, layoutInflater);
         if (element != null) {
             this.adapter.setSelectedListId(element.getListId());
         }
@@ -114,13 +114,12 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private void commit(View button) {
         Log.i(TAG, "commit");
         ListElement element = this.findElement(button);
-        element.setEdited(false);
         RelativeLayout parent = (RelativeLayout) button.getParent();
         EditText text = (EditText) parent.findViewById(R.id.activity_lists_row_edit_text);
         if (text.getText().toString().equals("")) {
             remove(button);
         } else {
-            this.listsRepository.update(element.getId(), text.getText().toString());
+            this.listsRepository.update(element.getId(), text.getText().toString(), false);
             this.adapter.notifyDataSetChanged();
 
             this.refresher.updateList(this, element.getId());
@@ -130,10 +129,12 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private void cancel(View button) {
         Log.i(TAG, "cancel");
         ListElement element = this.findElement(button);
-        element.setEdited(false);
         if (element.getName().equals("")) {
+            Log.i(TAG, "cancel old item name empty");
             remove(button);
         } else {
+            Log.i(TAG, "cancel old item name " + element.getName());
+            this.listsRepository.update(element.getId(), element.getName(), false);
             this.adapter.notifyDataSetChanged();
         }
     }
@@ -141,7 +142,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
     private void edit(View button) {
         Log.i(TAG, "edit");
         ListElement element = this.findElement(button);
-        element.setEdited(true);
+        this.listsRepository.update(element.getId(), element.getName(), true);
         this.adapter.notifyDataSetChanged();
     }
 
@@ -151,26 +152,28 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         List<ListWidgetElement> listWidgets = this.listsWidgetRepository.list(element.getId());
         List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
 
+        this.listsRepository.remove(element.getId());
+
         for (ListItemElement item : listItems) {
             this.listsItemRepository.remove(item.getId());
         }
 
-        for (ListWidgetElement item : listWidgets) {
-            this.listsWidgetRepository.remove(item.getWidgetId());
-            this.refresher.updateWidget(this, item.getWidgetId());
+        for (ListWidgetElement widget : listWidgets) {
+            this.listsWidgetRepository.remove(widget.getWidgetId());
+            this.refresher.updateWidget(this, widget.getWidgetId());
         }
 
-        this.listsRepository.remove(element.getId());
         this.adapter.notifyDataSetChanged();
     }
 
     public void addList(View button) {
         Log.i(TAG, "addList");
-        long listId = this.listsRepository.add("");
+        int listId = this.listsRepository.add("test", true);
         this.adapter.notifyDataSetChanged();
     }
 
     private ListElement findElement(View control) {
+        Log.i(TAG, "findElement");
         RelativeLayout parent = (RelativeLayout) control.getParent();
         return (ListElement) parent.getTag();
     }

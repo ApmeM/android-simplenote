@@ -8,8 +8,8 @@ package org.apmem.widget.notes.datastore.model;
  * To change this template use File | Settings | File Templates.
  */
 public class ListElement {
-    private String name = "Set name";
-    private long id;
+    private String name;
+    private int id;
     private boolean edited = false;
 
     public String getName() {
@@ -20,11 +20,11 @@ public class ListElement {
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

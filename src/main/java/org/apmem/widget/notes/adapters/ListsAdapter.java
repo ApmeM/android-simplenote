@@ -14,6 +14,8 @@ import org.apmem.widget.notes.R;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: ApmeM
@@ -22,34 +24,42 @@ import org.apmem.widget.notes.datastore.model.ListElement;
  * To change this template use File | Settings | File Templates.
  */
 public class ListsAdapter extends BaseAdapter {
-    private ListsRepository listRepository;
+    private List<ListElement> elements;
     private LayoutInflater layoutInflater;
-    private long selectedListId = -1;
+    private int selectedListId = -1;
 
     private View.OnClickListener onRemoveClickListener;
     private View.OnClickListener onEditClickListener;
     private View.OnClickListener onCommitClickListener;
     private View.OnClickListener onCancelClickListener;
     private View.OnClickListener onItemClickListener;
+    private ListsRepository listsRepository;
 
-    public ListsAdapter(ListsRepository listRepository, LayoutInflater layoutInflater) {
-        this.listRepository = listRepository;
+    public ListsAdapter(ListsRepository listsRepository, LayoutInflater layoutInflater) {
+        this.listsRepository = listsRepository;
+        this.elements = this.listsRepository.list();
         this.layoutInflater = layoutInflater;
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        this.elements = this.listsRepository.list();
+        super.notifyDataSetChanged();    //To change body of overridden methods use File | Settings | File Templates.
+    }
+
+    @Override
     public int getCount() {
-        return listRepository.list().size();
+        return elements.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listRepository.list().get(i);
+        return elements.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return listRepository.list().get(i).getId();
+        return elements.get(i).getId();
     }
 
     @Override
@@ -121,7 +131,7 @@ public class ListsAdapter extends BaseAdapter {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public void setSelectedListId(long selectedListId) {
+    public void setSelectedListId(int selectedListId) {
         this.selectedListId = selectedListId;
     }
 }

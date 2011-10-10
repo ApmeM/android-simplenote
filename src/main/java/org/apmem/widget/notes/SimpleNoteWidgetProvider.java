@@ -34,9 +34,9 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
 
-            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_logo);
-            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_body);
-            this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, -1l, R.id.widget_layout_button_add);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_logo);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_body);
+            this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_button_add);
 
             this.updateWidget(context, appWidgetId, remoteViews);
         }
@@ -50,10 +50,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
         Bundle extras = intent.getExtras();
 
-        ListsRepository listsRepository = DependencyResolver.getListRepository();
-        ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository();
-        ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository();
-        Refresher refresher = DependencyResolver.getCurrentRefresher();
+        ListsRepository listsRepository = DependencyResolver.getListRepository(context);
+        ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(context);
+        ListsWidgetRepository listsWidgetRepository = DependencyResolver.getListsWidgetRepository(context);
+        Refresher refresher = DependencyResolver.getCurrentRefresher(context);
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             Resources resources = context.getResources();
@@ -86,7 +86,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
             this.updateWidget(context, appWidgetId, remoteViews);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
-            long itemId = extras.getLong(Constants.INTENT_EXTRA_WIDGET_ITEM_ID);
+            int itemId = extras.getInt(Constants.INTENT_EXTRA_WIDGET_ITEM_ID);
             ListItemElement item = listsItemRepository.get(itemId);
             if (item != null) {
                 listsItemRepository.update(item.getId(), item.getName(), !item.isDone());
@@ -110,7 +110,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
             text = stringUnderline;
         }
 
-        long itemId = item.getId();
+        int itemId = item.getId();
         RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row_2_2);
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
@@ -123,7 +123,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews);
     }
 
-    private void setEventActivity(Context context, Class receiverClass, RemoteViews remoteViews, int appWidgetId, long itemId, int senderId) {
+    private void setEventActivity(Context context, Class receiverClass, RemoteViews remoteViews, int appWidgetId, int itemId, int senderId) {
         Intent newIntent = new Intent(context, receiverClass);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
@@ -136,7 +136,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
     }
 
-    private void setEventBroadcast(Context context, Class receiverClass, RemoteViews remoteViews, String action, int appWidgetId, long itemId, int senderId) {
+    private void setEventBroadcast(Context context, Class receiverClass, RemoteViews remoteViews, String action, int appWidgetId, int itemId, int senderId) {
         Intent newIntent = new Intent(context, receiverClass);
         newIntent.setAction(action);
         newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

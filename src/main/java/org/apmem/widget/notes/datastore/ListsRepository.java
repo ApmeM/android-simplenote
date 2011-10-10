@@ -15,11 +15,11 @@ public interface ListsRepository {
 
     List<ListElement> list();
 
-    long add(String name);
+    int add(String name, boolean edited);
 
-    void remove(long id);
+    void remove(int listId);
 
-    void update(long id, String name);
+    void update(int listId, String name, boolean edited);
 
-    ListElement get(long listId);
+    ListElement get(int listId);
 }

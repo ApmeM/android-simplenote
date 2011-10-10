@@ -32,7 +32,7 @@ public class RefresherFromActivity implements Refresher {
     }
 
     @Override
-    public void updateList(Context context, long listId) {
+    public void updateList(Context context, int listId) {
         List<ListWidgetElement> listWidgetElement = listsWidgetRepository.list(listId);
         for (ListWidgetElement widgetElement : listWidgetElement) {
             this.updateWidget(context, widgetElement.getWidgetId());
