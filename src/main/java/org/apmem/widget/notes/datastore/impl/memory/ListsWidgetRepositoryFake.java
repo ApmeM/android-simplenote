@@ -17,7 +17,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
     private List<ListWidgetElement> listElements = new ArrayList<ListWidgetElement>();
 
     @Override
-    public List<ListWidgetElement> list(long listId) {
+    public List<ListWidgetElement> list(int listId) {
         List<ListWidgetElement> result = new ArrayList<ListWidgetElement>();
         for (ListWidgetElement element : this.listElements) {
             if (element.getListId() == listId) {
@@ -28,7 +28,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
     }
 
     @Override
-    public long add(int widgetId, long listId) {
+    public int add(int widgetId, int listId) {
         ListWidgetElement listElement = new ListWidgetElement();
         listElement.setListId(listId);
         listElement.setWidgetId(widgetId);
@@ -46,7 +46,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
     }
 
     @Override
-    public void update(int widgetId, long listId) {
+    public void update(int widgetId, int listId) {
         ListWidgetElement element = this.get(widgetId);
         if (element != null) {
             element.setListId(listId);

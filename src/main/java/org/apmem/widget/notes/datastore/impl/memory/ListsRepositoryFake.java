@@ -22,17 +22,17 @@ public class ListsRepositoryFake implements ListsRepository {
     }
 
     @Override
-    public long add(String name) {
+    public int add(String name, boolean edited) {
         ListElement listElement = new ListElement();
         listElement.setName(name);
-        listElement.setEdited(true);
+        listElement.setEdited(edited);
         listElement.setId(this.listElements.size());
         this.listElements.add(listElement);
         return listElement.getId();
     }
 
     @Override
-    public void remove(long id) {
+    public void remove(int id) {
         ListElement element = this.get(id);
         if (element != null) {
             this.listElements.remove(element);
@@ -40,7 +40,7 @@ public class ListsRepositoryFake implements ListsRepository {
     }
 
     @Override
-    public void update(long id, String name, boolean edited) {
+    public void update(int id, String name, boolean edited) {
         ListElement element = this.get(id);
         if (element != null) {
             element.setName(name);
@@ -49,7 +49,7 @@ public class ListsRepositoryFake implements ListsRepository {
     }
 
     @Override
-    public ListElement get(long listId) {
+    public ListElement get(int listId) {
         for (ListElement element : this.listElements) {
             if (element.getId() == listId) {
                 return element;

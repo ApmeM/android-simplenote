@@ -38,7 +38,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
         Button deleteButton = (Button) this.findViewById(R.id.activity_item_button_delete);
         Button nextButton = (Button) this.findViewById(R.id.activity_item_button_next);
 
-        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+        int itemId = this.getIntent().getIntExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
         ListItemElement item = this.listsItemRepository.get(itemId);
         if (item != null) {
             editText.setText(item.getName());
@@ -75,7 +75,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
 
     private void saveItem(String name) {
         if (!name.trim().equals("")) {
-            long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+            int itemId = this.getIntent().getIntExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
             ListItemElement item = this.listsItemRepository.get(itemId);
             int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
             ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
@@ -99,7 +99,7 @@ public class SimpleNoteWidgetItemActivity extends Activity {
     public void onDelete(View button) {
         Log.i(TAG, "onDelete");
 
-        long itemId = this.getIntent().getLongExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1l);
+        int itemId = this.getIntent().getIntExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, -1);
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         ListWidgetElement widget = this.listsWidgetRepository.get(appWidgetId);
 

@@ -17,7 +17,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     private List<ListItemElement> listElements = new ArrayList<ListItemElement>();
 
     @Override
-    public List<ListItemElement> list(long listId) {
+    public List<ListItemElement> list(int listId) {
         List<ListItemElement> result = new ArrayList<ListItemElement>();
         for (ListItemElement element : this.listElements) {
             if (element.getListId() == listId) {
@@ -28,7 +28,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     }
 
     @Override
-    public long add(String name, long listId) {
+    public int add(String name, int listId) {
         ListItemElement listElement = new ListItemElement();
         listElement.setListId(listId);
         listElement.setName(name);
@@ -38,7 +38,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     }
 
     @Override
-    public void remove(long itemId) {
+    public void remove(int itemId) {
         ListItemElement element = this.get(itemId);
         if (element != null) {
             this.listElements.remove(element);
@@ -46,7 +46,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     }
 
     @Override
-    public void update(long itemId, String name, boolean isDone) {
+    public void update(int itemId, String name, boolean isDone) {
         ListItemElement element = this.get(itemId);
         if (element != null) {
             if (element.isDone() != isDone) {
@@ -63,7 +63,7 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     }
 
     @Override
-    public ListItemElement get(long itemId) {
+    public ListItemElement get(int itemId) {
         for (ListItemElement element : this.listElements) {
             if (element.getId() == itemId) {
                 return element;

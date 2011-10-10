@@ -9,7 +9,7 @@ package org.apmem.widget.notes.datastore.model;
  */
 public class ListElement {
     private String name;
-    private long id;
+    private int id;
     private boolean edited = false;
 
     public String getName() {
@@ -20,11 +20,11 @@ public class ListElement {
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -2,8 +2,6 @@ package org.apmem.widget.notes.refresh;
 
 import android.content.Context;
 
-import java.util.List;
-
 /**
  * Created by IntelliJ IDEA.
  * User: ApmeM
@@ -13,5 +11,5 @@ import java.util.List;
  */
 public interface Refresher {
     public void updateWidget(Context context, int appWidgetId);
-    public void updateList(Context context, long listId);
+    public void updateList(Context context, int listId);
 }

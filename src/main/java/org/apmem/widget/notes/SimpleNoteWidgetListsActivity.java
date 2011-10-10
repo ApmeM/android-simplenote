@@ -49,7 +49,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         ListWidgetElement element = this.listsWidgetRepository.get(appWidgetId);
 
-        this.adapter = new ListsAdapter(listsRepository, layoutInflater);
+        this.adapter = new ListsAdapter(this.listsRepository, layoutInflater);
         if (element != null) {
             this.adapter.setSelectedListId(element.getListId());
         }
@@ -130,8 +130,10 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         Log.i(TAG, "cancel");
         ListElement element = this.findElement(button);
         if (element.getName().equals("")) {
+            Log.i(TAG, "cancel old item name empty");
             remove(button);
         } else {
+            Log.i(TAG, "cancel old item name " + element.getName());
             this.listsRepository.update(element.getId(), element.getName(), false);
             this.adapter.notifyDataSetChanged();
         }
@@ -166,11 +168,12 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     public void addList(View button) {
         Log.i(TAG, "addList");
-        long listId = this.listsRepository.add("");
+        int listId = this.listsRepository.add("test", true);
         this.adapter.notifyDataSetChanged();
     }
 
     private ListElement findElement(View control) {
+        Log.i(TAG, "findElement");
         RelativeLayout parent = (RelativeLayout) control.getParent();
         return (ListElement) parent.getTag();
     }
