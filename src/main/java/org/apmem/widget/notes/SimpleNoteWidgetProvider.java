@@ -32,7 +32,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         Log.i(TAG, "onUpdate called for " + appWidgetIds[0]);
 
         for (int appWidgetId : appWidgetIds) {
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
             this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_logo);
             this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_body);
@@ -47,7 +47,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         String action = intent.getAction();
         Log.i(TAG, "onReceive called with " + action);
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout_2_2);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
         Bundle extras = intent.getExtras();
 
         ListsRepository listsRepository = DependencyResolver.getListRepository(context);
@@ -111,7 +111,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         }
 
         int itemId = item.getId();
-        RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row_2_2);
+        RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row);
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);

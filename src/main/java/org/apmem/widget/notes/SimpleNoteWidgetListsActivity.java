@@ -168,7 +168,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     public void addList(View button) {
         Log.i(TAG, "addList");
-        int listId = this.listsRepository.add("test", true);
+        int listId = this.listsRepository.add("", true);
         this.adapter.notifyDataSetChanged();
     }
 

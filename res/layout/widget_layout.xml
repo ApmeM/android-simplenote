@@ -4,25 +4,20 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:focusable="true"
-                android:background="@drawable/widget_2_2">
+                android:background="@drawable/widget_background">
     <ImageView
             android:id="@+id/widget_layout_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginBottom="0dip"
+            android:layout_marginLeft="5dip"
             android:src="@drawable/logo"/>
     <TextView
             android:id="@+id/widget_layout_title"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/widget_layout_logo"
-            android:layout_marginTop="25dip"
-            android:layout_marginLeft="0dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginBottom="0dip"
+            android:layout_marginTop="10dip"
+            android:layout_marginLeft="5dip"
             android:text="@string/widget_layout_title"
             style="@style/WidgetTitle"/>
     <TextView
@@ -31,9 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_layout_logo"
             android:layout_marginTop="5dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginBottom="0dip"
             android:text="@string/widget_layout_body"
             style="@style/WidgetText"/>
     <LinearLayout
@@ -41,9 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_layout_body"
-            android:layout_marginTop="15dip"
-            android:layout_marginLeft="20dip"
-            android:layout_marginRight="15dip"
+            android:layout_marginTop="5dip"
             android:orientation="vertical"/>
     <Button
             android:id="@+id/widget_layout_button_add"
