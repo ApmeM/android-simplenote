@@ -23,8 +23,8 @@ import org.apmem.widget.notes.refresh.Refresher;
 
 import java.util.List;
 
-public class SimpleNoteWidgetProvider extends AppWidgetProvider {
-    private static final String TAG = "SimpleNoteWidgetProvider";
+public class SimpleNoteWidgetProvider_3_3 extends AppWidgetProvider {
+    private static final String TAG = "SimpleNoteWidgetProvider_2_2";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -123,11 +123,11 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
-        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        this.setEventBroadcast(context, SimpleNoteWidgetProvider_3_3.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
     }
 
     private void updateWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
-//        ComponentName thisWidget = new ComponentName(context, SimpleNoteWidgetProvider.class);
+//        ComponentName thisWidget = new ComponentName(context, SimpleNoteWidgetProvider_2_2.class);
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews);
     }
 

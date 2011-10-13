@@ -12,7 +12,7 @@
                   android:label="@string/activity_item_title"
                   android:theme="@android:style/Theme.Dialog"
                 />
-        <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_2" android:enabled="true">
+        <receiver android:name=".SimpleNoteWidgetProvider_2_2" android:label="@string/app_widget_2_2">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>
@@ -20,7 +20,7 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_2_2"/>
         </receiver>
-        <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_2_3" android:enabled="true">
+        <receiver android:name=".SimpleNoteWidgetProvider_2_3" android:label="@string/app_widget_2_3">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>
@@ -28,7 +28,7 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_2_3"/>
         </receiver>
-        <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_3_2">
+        <receiver android:name=".SimpleNoteWidgetProvider_3_2" android:label="@string/app_widget_3_2">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>
@@ -36,7 +36,7 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_3_2"/>
         </receiver>
-        <receiver android:name=".SimpleNoteWidgetProvider" android:label="@string/app_widget_3_3">
+        <receiver android:name=".SimpleNoteWidgetProvider_3_3" android:label="@string/app_widget_3_3">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="ACTION_WIDGET_UPDATE_FROM_ACTIVITY"/>
