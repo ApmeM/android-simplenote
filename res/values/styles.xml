@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="WidgetTitle">
-        <item name="android:textSize">18sp</item>
+    <style name="header_text">
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="WidgetText">
-        <item name="android:textSize">12sp</item>
+    <style name="regular_text">
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

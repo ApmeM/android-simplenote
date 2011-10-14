@@ -18,5 +18,6 @@
             android:layout_toLeftOf="@id/widget_layout_row_button_edit"
             android:id="@+id/widget_layout_row_text"
             android:clickable="true"
+            style="@style/regular_text"
             />
 </RelativeLayout>

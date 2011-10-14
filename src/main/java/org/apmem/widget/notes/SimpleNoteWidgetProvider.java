@@ -23,8 +23,8 @@ import org.apmem.widget.notes.refresh.Refresher;
 
 import java.util.List;
 
-public class SimpleNoteWidgetProvider_3_3 extends AppWidgetProvider {
-    private static final String TAG = "SimpleNoteWidgetProvider_2_2";
+public class SimpleNoteWidgetProvider extends AppWidgetProvider {
+    private static final String TAG = "SimpleNoteWidgetProvider";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -35,7 +35,8 @@ public class SimpleNoteWidgetProvider_3_3 extends AppWidgetProvider {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
             this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_logo);
-            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_body);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_select_list_help);
+            this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_title);
             this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_button_add);
 
             this.redrawWidget(context, remoteViews, appWidgetId);
@@ -94,18 +95,18 @@ public class SimpleNoteWidgetProvider_3_3 extends AppWidgetProvider {
             }
 
             remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
-            remoteViews.setTextViewText(R.id.widget_layout_body, resources.getString(R.string.widget_layout_body_no_items));
+            remoteViews.setViewVisibility(R.id.widget_layout_select_list_help, View.GONE);
             if (listItems.size() == 0) {
-                remoteViews.setViewVisibility(R.id.widget_layout_body, View.VISIBLE);
+                remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.VISIBLE);
                 remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
             } else {
-                remoteViews.setViewVisibility(R.id.widget_layout_body, View.GONE);
+                remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.GONE);
                 remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
             }
         } else {
             remoteViews.setTextViewText(R.id.widget_layout_title, resources.getString(R.string.widget_layout_title));
-            remoteViews.setTextViewText(R.id.widget_layout_body, resources.getString(R.string.widget_layout_body));
-            remoteViews.setViewVisibility(R.id.widget_layout_body, View.VISIBLE);
+            remoteViews.setViewVisibility(R.id.widget_layout_select_list_help, View.VISIBLE);
+            remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.GONE);
             remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.GONE);
         }
     }
@@ -123,11 +124,11 @@ public class SimpleNoteWidgetProvider_3_3 extends AppWidgetProvider {
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
-        this.setEventBroadcast(context, SimpleNoteWidgetProvider_3_3.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
     }
 
     private void updateWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
-//        ComponentName thisWidget = new ComponentName(context, SimpleNoteWidgetProvider_2_2.class);
+//        ComponentName thisWidget = new ComponentName(context, SimpleNoteWidgetProvider.class);
         AppWidgetManager.getInstance(context).updateAppWidget(appWidgetId, remoteViews);
     }
 

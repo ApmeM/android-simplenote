@@ -1,0 +1,13 @@
+package org.apmem.widget.notes.providers;
+
+import org.apmem.widget.notes.SimpleNoteWidgetProvider;
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: ApmeM
+ * Date: 14.10.11
+ * Time: 20:37
+ * To change this template use File | Settings | File Templates.
+ */
+public class WidgetProvider_2_1 extends SimpleNoteWidgetProvider {
+}

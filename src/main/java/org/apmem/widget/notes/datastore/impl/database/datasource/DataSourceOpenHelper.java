@@ -39,10 +39,6 @@ public class DataSourceOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         Log.i(TAG, "onUpgrade");
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LIST_ITEMS_TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LIST_WIDGET_TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LIST_TABLE_NAME);
-        onCreate(sqLiteDatabase);
     }
 
     @Override

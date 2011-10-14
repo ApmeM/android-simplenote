@@ -7,8 +7,8 @@
     <string name="app_widget_3_3">Simple note 3x3</string>
 
     <string name="widget_layout_title">None</string>
-    <string name="widget_layout_body">Click on this widget to select or create new list.</string>
-    <string name="widget_layout_body_no_items">Click on add button to add list items.</string>
+    <string name="widget_layout_select_list_help">Click on widget, list name or list icon to manage lists.</string>
+    <string name="widget_layout_add_item_help">Click on add button to add list items.</string>
     <string name="widget_layout_button_add">Add</string>
     <string name="widget_layout_row_button_edit"></string>
 

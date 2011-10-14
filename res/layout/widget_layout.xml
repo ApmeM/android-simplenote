@@ -7,8 +7,8 @@
                 android:background="@drawable/widget_background">
     <ImageView
             android:id="@+id/widget_layout_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
             android:layout_marginLeft="5dip"
             android:src="@drawable/logo"/>
     <TextView
@@ -19,20 +19,28 @@
             android:layout_marginTop="10dip"
             android:layout_marginLeft="5dip"
             android:text="@string/widget_layout_title"
-            style="@style/WidgetTitle"/>
+            style="@style/header_text"/>
     <TextView
-            android:id="@+id/widget_layout_body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/widget_layout_select_list_help"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_below="@id/widget_layout_logo"
             android:layout_marginTop="5dip"
-            android:text="@string/widget_layout_body"
-            style="@style/WidgetText"/>
+            android:text="@string/widget_layout_select_list_help"
+            style="@style/regular_text"/>
+    <TextView
+            android:id="@+id/widget_layout_add_item_help"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/widget_layout_logo"
+            android:layout_marginTop="5dip"
+            android:text="@string/widget_layout_add_item_help"
+            style="@style/regular_text"/>
     <LinearLayout
             android:id="@+id/widget_layout_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/widget_layout_body"
+            android:layout_below="@id/widget_layout_title"
             android:layout_marginTop="5dip"
             android:orientation="vertical"/>
     <Button
