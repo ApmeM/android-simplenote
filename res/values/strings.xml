@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple note</string>
+    <string name="app_widget_1_1">Simple note 1x1</string>
+    <string name="app_widget_1_2">Simple note 1x2</string>
+    <string name="app_widget_1_3">Simple note 1x3</string>
+    <string name="app_widget_1_4">Simple note 1x4</string>
+    <string name="app_widget_2_1">Simple note 2x1</string>
     <string name="app_widget_2_2">Simple note 2x2</string>
     <string name="app_widget_2_3">Simple note 2x3</string>
+    <string name="app_widget_2_4">Simple note 2x4</string>
+    <string name="app_widget_3_1">Simple note 3x1</string>
     <string name="app_widget_3_2">Simple note 3x2</string>
     <string name="app_widget_3_3">Simple note 3x3</string>
+    <string name="app_widget_3_4">Simple note 3x4</string>
+    <string name="app_widget_4_1">Simple note 4x1</string>
+    <string name="app_widget_4_2">Simple note 4x2</string>
+    <string name="app_widget_4_3">Simple note 4x3</string>
+    <string name="app_widget_4_4">Simple note 4x4</string>
 
     <string name="widget_layout_title">None</string>
     <string name="widget_layout_select_list_help">Click on widget, list name or list icon to manage lists.</string>
