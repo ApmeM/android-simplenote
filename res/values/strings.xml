@@ -22,7 +22,7 @@
     <string name="widget_layout_select_list_help">Click on widget, list name or list icon to manage lists.</string>
     <string name="widget_layout_add_item_help">Click on add button to add list items.</string>
     <string name="widget_layout_button_add">Add</string>
-    <string name="widget_layout_row_button_edit"></string>
+    <string name="widget_layout_row_button_edit">Edit</string>
 
     <string name="activity_lists_title">Manage lists</string>
     <string name="activity_lists_button_add">Add</string>

@@ -19,6 +19,7 @@ import org.apmem.widget.notes.datastore.ListsWidgetRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
 import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
+import org.apmem.widget.notes.providers.WidgetProviderHelper;
 import org.apmem.widget.notes.refresh.Refresher;
 
 import java.util.List;
@@ -124,7 +125,10 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
-        this.setEventBroadcast(context, SimpleNoteWidgetProvider.class, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        List<Class> allWidgets = WidgetProviderHelper.getAllProviders();
+        for (Class widget : allWidgets) {
+            this.setEventBroadcast(context, widget, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        }
     }
 
     private void updateWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
