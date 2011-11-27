@@ -32,6 +32,8 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         Log.i(TAG, "onUpdate called for " + appWidgetIds[0]);
 
+        Thread.setDefaultUncaughtExceptionHandler(new DefaultExceptionHandler());
+
         for (int appWidgetId : appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
 
