@@ -40,6 +40,9 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
             this.setEventActivity(context, SimpleNoteWidgetListsActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_title);
             this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, remoteViews, appWidgetId, -1, R.id.widget_layout_button_add);
 
+            this.setEventBroadcast(context, remoteViews, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_NEXT, appWidgetId, 0, R.id.widget_layout_button_next);
+            this.setEventBroadcast(context, remoteViews, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_PREV, appWidgetId, 0, R.id.widget_layout_button_prev);
+
             this.redrawWidget(context, remoteViews, appWidgetId);
 
             this.updateWidget(context, remoteViews, appWidgetId);
@@ -56,6 +59,20 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
 
         if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_ACTIVITY)) {
             int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            this.redrawWidget(context, remoteViews, appWidgetId);
+            this.updateWidget(context, remoteViews, appWidgetId);
+        } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_NEXT)) {
+            int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            ListsWidgetRepository widgetRepository = DependencyResolver.getListsWidgetRepository(context);
+            ListWidgetElement widget = widgetRepository.get(appWidgetId);
+            widgetRepository.update(widget.getWidgetId(), widget.getListId(), widget.getPage() + 1);
+            this.redrawWidget(context, remoteViews, appWidgetId);
+            this.updateWidget(context, remoteViews, appWidgetId);
+        } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_PREV)) {
+            int appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID);
+            ListsWidgetRepository widgetRepository = DependencyResolver.getListsWidgetRepository(context);
+            ListWidgetElement widget = widgetRepository.get(appWidgetId);
+            widgetRepository.update(widget.getWidgetId(), widget.getListId(), widget.getPage() - 1);
             this.redrawWidget(context, remoteViews, appWidgetId);
             this.updateWidget(context, remoteViews, appWidgetId);
         } else if (action.equals(Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM)) {
@@ -99,18 +116,32 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
 
             remoteViews.setTextViewText(R.id.widget_layout_title, element.getName());
             remoteViews.setViewVisibility(R.id.widget_layout_select_list_help, View.GONE);
+            remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
             if (listItems.size() == 0) {
                 remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
             } else {
                 remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.GONE);
-                remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.VISIBLE);
             }
+
+            if (widgetElement.getPage() > 0) {
+                remoteViews.setViewVisibility(R.id.widget_layout_button_prev, View.VISIBLE);
+            } else {
+                remoteViews.setViewVisibility(R.id.widget_layout_button_prev, View.GONE);
+            }
+
+            if (listItems.size() == this.getPageSize()) {
+                remoteViews.setViewVisibility(R.id.widget_layout_button_next, View.VISIBLE);
+            } else {
+                remoteViews.setViewVisibility(R.id.widget_layout_button_next, View.GONE);
+            }
+
         } else {
             remoteViews.setTextViewText(R.id.widget_layout_title, resources.getString(R.string.widget_layout_title));
             remoteViews.setViewVisibility(R.id.widget_layout_select_list_help, View.VISIBLE);
             remoteViews.setViewVisibility(R.id.widget_layout_add_item_help, View.GONE);
             remoteViews.setViewVisibility(R.id.widget_layout_button_add, View.GONE);
+            remoteViews.setViewVisibility(R.id.widget_layout_button_prev, View.GONE);
+            remoteViews.setViewVisibility(R.id.widget_layout_button_next, View.GONE);
         }
     }
 
@@ -127,10 +158,7 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
         newView.setTextViewText(R.id.widget_layout_row_text, text);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
-        List<Class> allWidgets = WidgetProviderHelper.getAllProviders();
-        for (Class widget : allWidgets) {
-            this.setEventBroadcast(context, widget, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
-        }
+        this.setEventBroadcast(context, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
     }
 
     private void updateWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
@@ -151,17 +179,20 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
     }
 
-    private void setEventBroadcast(Context context, Class receiverClass, RemoteViews remoteViews, String action, int appWidgetId, int itemId, int senderId) {
-        Intent newIntent = new Intent(context, receiverClass);
-        newIntent.setAction(action);
-        newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-        newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
+    private void setEventBroadcast(Context context, RemoteViews remoteViews, String action, int appWidgetId, int itemId, int senderId) {
+        List<Class> allWidgets = WidgetProviderHelper.getAllProviders();
+        for (Class widget : allWidgets) {
+            Intent newIntent = new Intent(context, widget);
+            newIntent.setAction(action);
+            newIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            newIntent.putExtra(Constants.INTENT_EXTRA_WIDGET_ITEM_ID, itemId);
 
-        // When intents are compared, the extras are ignored, so we need to embed the extras
-        // into the data so that the extras will not be ignored.
-        newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
+            // When intents are compared, the extras are ignored, so we need to embed the extras
+            // into the data so that the extras will not be ignored.
+            newIntent.setData(Uri.parse(newIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        PendingIntent pendingIntentLogo = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
+            PendingIntent pendingIntentLogo = PendingIntent.getBroadcast(context, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(senderId, pendingIntentLogo);
+        }
     }
 }
