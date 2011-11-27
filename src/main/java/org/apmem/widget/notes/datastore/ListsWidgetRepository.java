@@ -19,7 +19,9 @@ public interface ListsWidgetRepository {
 
     void remove(int widgetId);
 
-    void update(int widgetId, int listId);
+    void removeList(int listId);
+
+    void update(int widgetId, int listId, int page);
 
     ListWidgetElement get (int widgetId);
 }

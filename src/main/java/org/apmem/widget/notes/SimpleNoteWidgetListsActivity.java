@@ -15,7 +15,6 @@ import org.apmem.widget.notes.datastore.ListsItemRepository;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.ListsWidgetRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
-import org.apmem.widget.notes.datastore.model.ListItemElement;
 import org.apmem.widget.notes.datastore.model.ListWidgetElement;
 import org.apmem.widget.notes.refresh.Refresher;
 
@@ -100,7 +99,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
         ListWidgetElement widgetElement = listsWidgetRepository.get(appWidgetId);
         if (widgetElement != null) {
-            listsWidgetRepository.update(appWidgetId, element.getId());
+            listsWidgetRepository.update(appWidgetId, element.getId(), 0);
         } else {
             listsWidgetRepository.add(appWidgetId, element.getId());
         }
@@ -150,16 +149,12 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         Log.i(TAG, "remove");
         ListElement element = this.findElement(button);
         List<ListWidgetElement> listWidgets = this.listsWidgetRepository.list(element.getId());
-        List<ListItemElement> listItems = this.listsItemRepository.list(element.getId());
 
         this.listsRepository.remove(element.getId());
-
-        for (ListItemElement item : listItems) {
-            this.listsItemRepository.remove(item.getId());
-        }
+        this.listsItemRepository.removeList(element.getId());
+        this.listsWidgetRepository.removeList(element.getId());
 
         for (ListWidgetElement widget : listWidgets) {
-            this.listsWidgetRepository.remove(widget.getWidgetId());
             this.refresher.updateWidget(this, widget.getWidgetId());
         }
 

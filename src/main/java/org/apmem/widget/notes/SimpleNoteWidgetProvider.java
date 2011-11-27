@@ -24,7 +24,7 @@ import org.apmem.widget.notes.refresh.Refresher;
 
 import java.util.List;
 
-public class SimpleNoteWidgetProvider extends AppWidgetProvider {
+public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "SimpleNoteWidgetProvider";
 
     @Override
@@ -79,6 +79,8 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
     }
 
+    public abstract int getPageSize();
+
     private void redrawWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
         ListsRepository listsRepository = DependencyResolver.getListRepository(context);
         ListsItemRepository listsItemRepository = DependencyResolver.getListsItemRepository(context);
@@ -90,7 +92,7 @@ public class SimpleNoteWidgetProvider extends AppWidgetProvider {
 
         if (widgetElement != null) {
             ListElement element = listsRepository.get(widgetElement.getListId());
-            List<ListItemElement> listItems = listsItemRepository.list(element.getId());
+            List<ListItemElement> listItems = listsItemRepository.list(element.getId(), widgetElement.getPage() * this.getPageSize(), this.getPageSize());
             for (ListItemElement item : listItems) {
                 this.addItem(context, appWidgetId, remoteViews, item);
             }

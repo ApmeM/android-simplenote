@@ -10,4 +10,8 @@ import org.apmem.widget.notes.SimpleNoteWidgetProvider;
  * To change this template use File | Settings | File Templates.
  */
 public class WidgetProvider_1_4 extends SimpleNoteWidgetProvider {
+    @Override
+    public int getPageSize() {
+        return 7;
+    }
 }

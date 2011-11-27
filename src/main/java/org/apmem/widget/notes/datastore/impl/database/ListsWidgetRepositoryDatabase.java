@@ -31,7 +31,7 @@ public class ListsWidgetRepositoryDatabase implements ListsWidgetRepository {
     public List<ListWidgetElement> list(int listId) {
         Log.i(TAG, "list " + listId);
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, new String[]{"elementId", "listId", "widgetId"}, "listId = ?", new String[]{Integer.toString(listId)}, null, null, "elementId asc");
+        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, new String[]{"elementId", "listId", "widgetId", "page"}, "listId = ?", new String[]{Integer.toString(listId)}, null, null, "elementId asc");
 
         return this.getDataFromCursor(cursor);
     }
@@ -42,6 +42,7 @@ public class ListsWidgetRepositoryDatabase implements ListsWidgetRepository {
         ContentValues values = new ContentValues();
         values.put("widgetId", widgetId);
         values.put("listId", listId);
+        values.put("page", 0);
 
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
         return (int) writableDatabase.insert(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, null, values);
@@ -55,11 +56,19 @@ public class ListsWidgetRepositoryDatabase implements ListsWidgetRepository {
     }
 
     @Override
-    public void update(int widgetId, int listId) {
+    public void removeList(int listId) {
+        Log.i(TAG, "delete widgets with listId " + listId);
+        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+        writableDatabase.delete(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, "listId=?", new String[]{Integer.toString(listId)});
+    }
+
+    @Override
+    public void update(int widgetId, int listId, int page) {
         Log.i(TAG, "update with elementId " + widgetId + " to " + listId);
         ContentValues values = new ContentValues();
         values.put("widgetId", widgetId);
         values.put("listId", listId);
+        values.put("page", page);
 
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
         writableDatabase.update(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, values, "widgetId=?", new String[]{Integer.toString(widgetId)});
@@ -69,7 +78,7 @@ public class ListsWidgetRepositoryDatabase implements ListsWidgetRepository {
     public ListWidgetElement get(int widgetId) {
         Log.i(TAG, "get with elementId " + widgetId);
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, new String[]{"elementId", "listId", "widgetId"}, "widgetId=?", new String[]{Integer.toString(widgetId)}, null, null, null);
+        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_WIDGET_TABLE_NAME, new String[]{"elementId", "listId", "widgetId", "page"}, "widgetId=?", new String[]{Integer.toString(widgetId)}, null, null, null);
         List<ListWidgetElement> result = this.getDataFromCursor(cursor);
         if (result.size() == 1) {
             ListWidgetElement listWidgetElement = result.get(0);
@@ -94,6 +103,7 @@ public class ListsWidgetRepositoryDatabase implements ListsWidgetRepository {
                 element.setId(cursor.getInt(0));
                 element.setListId(cursor.getInt(1));
                 element.setWidgetId(cursor.getInt(2));
+                element.setPage(cursor.getInt(3));
                 result.add(element);
             } while (cursor.moveToNext());
             Log.i(TAG, "getDataFromCursor " + result.size() + " items found");

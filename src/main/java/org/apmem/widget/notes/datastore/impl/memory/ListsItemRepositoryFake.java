@@ -17,12 +17,18 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
     private List<ListItemElement> listElements = new ArrayList<ListItemElement>();
 
     @Override
-    public List<ListItemElement> list(int listId) {
+    public List<ListItemElement> list(int listId, int offset, int count) {
         List<ListItemElement> result = new ArrayList<ListItemElement>();
+        int i = 0;
         for (ListItemElement element : this.listElements) {
-            if (element.getListId() == listId) {
-                result.add(element);
+            if (element.getListId() != listId) {
+                continue;
             }
+            if (i < offset || i >= offset + count) {
+                continue;
+            }
+            i++;
+            result.add(element);
         }
         return result;
     }
@@ -42,6 +48,16 @@ public class ListsItemRepositoryFake implements ListsItemRepository {
         ListItemElement element = this.get(itemId);
         if (element != null) {
             this.listElements.remove(element);
+        }
+    }
+
+    @Override
+    public void removeList(int listId) {
+        for (int i = this.listElements.size() - 1; i >= 0; i--) {
+            ListItemElement element = this.listElements.get(i);
+            if (element.getListId() == listId) {
+                this.listElements.remove(i);
+            }
         }
     }
 

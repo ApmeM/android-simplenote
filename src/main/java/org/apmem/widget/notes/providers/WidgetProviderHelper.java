@@ -13,21 +13,21 @@ import java.util.List;
 public class WidgetProviderHelper {
     public static List<Class> getAllProviders(){
         List<Class> result = new ArrayList<Class>();
-        result.add(WidgetProvider_1_1.class);
-        result.add(WidgetProvider_1_2.class);
-        result.add(WidgetProvider_1_3.class);
-        result.add(WidgetProvider_1_4.class);
-        result.add(WidgetProvider_2_1.class);
+//        result.add(WidgetProvider_1_1.class);
+//        result.add(WidgetProvider_1_2.class);
+//        result.add(WidgetProvider_1_3.class);
+//        result.add(WidgetProvider_1_4.class);
+//        result.add(WidgetProvider_2_1.class);
         result.add(WidgetProvider_2_2.class);
-        result.add(WidgetProvider_2_3.class);
-        result.add(WidgetProvider_2_4.class);
-        result.add(WidgetProvider_3_1.class);
-        result.add(WidgetProvider_3_2.class);
-        result.add(WidgetProvider_3_3.class);
-        result.add(WidgetProvider_3_4.class);
-        result.add(WidgetProvider_4_1.class);
-        result.add(WidgetProvider_4_2.class);
-        result.add(WidgetProvider_4_3.class);
+//        result.add(WidgetProvider_2_3.class);
+//        result.add(WidgetProvider_2_4.class);
+//        result.add(WidgetProvider_3_1.class);
+//        result.add(WidgetProvider_3_2.class);
+//        result.add(WidgetProvider_3_3.class);
+//        result.add(WidgetProvider_3_4.class);
+//        result.add(WidgetProvider_4_1.class);
+//        result.add(WidgetProvider_4_2.class);
+//        result.add(WidgetProvider_4_3.class);
         result.add(WidgetProvider_4_4.class);
         return result;
     }

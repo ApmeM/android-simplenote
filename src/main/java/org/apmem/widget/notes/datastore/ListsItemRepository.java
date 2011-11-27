@@ -13,11 +13,13 @@ import java.util.List;
  */
 public interface ListsItemRepository {
 
-    List<ListItemElement> list(int listId);
+    List<ListItemElement> list(int listId, int offset, int count);
 
     int add(String name, int listId);
 
     void remove(int itemId);
+
+    void removeList(int listId);
 
     void update(int itemId, String name, boolean done);
 

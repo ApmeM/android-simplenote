@@ -28,10 +28,10 @@ public class ListsItemRepositoryDatabase implements ListsItemRepository {
     }
 
     @Override
-    public List<ListItemElement> list(int listId) {
+    public List<ListItemElement> list(int listId, int offset, int count) {
         Log.i(TAG, "list " + listId);
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_ITEMS_TABLE_NAME, new String[]{"elementId", "listId", "name", "done"}, "listId = ?", new String[]{Long.toString(listId)}, null, null, "done asc, elementId asc");
+        Cursor cursor = writableDatabase.query(DataSourceOpenHelper.LIST_ITEMS_TABLE_NAME, new String[]{"elementId", "listId", "name", "done"}, "listId = ?", new String[]{Long.toString(listId)}, null, null, "done asc, elementId asc", offset + ", " + count);
 
         return this.getDataFromCursor(cursor);
     }
@@ -54,6 +54,13 @@ public class ListsItemRepositoryDatabase implements ListsItemRepository {
         Log.i(TAG, "delete with elementId " + itemId);
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
         writableDatabase.delete(DataSourceOpenHelper.LIST_ITEMS_TABLE_NAME, "elementId=?", new String[]{Long.toString(itemId)});
+    }
+
+    @Override
+    public void removeList(int listId) {
+        Log.i(TAG, "delete items with listId " + listId);
+        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
+        writableDatabase.delete(DataSourceOpenHelper.LIST_ITEMS_TABLE_NAME, "listId=?", new String[]{Long.toString(listId)});
     }
 
     @Override

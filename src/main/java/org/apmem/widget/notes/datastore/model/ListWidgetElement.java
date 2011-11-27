@@ -10,7 +10,8 @@ package org.apmem.widget.notes.datastore.model;
 public class ListWidgetElement {
     private int id;
     private int listId;
-    private int WidgetId;
+    private int widgetId;
+    private int page;
 
     public int getId() {
         return id;
@@ -29,10 +30,18 @@ public class ListWidgetElement {
     }
 
     public int getWidgetId() {
-        return WidgetId;
+        return widgetId;
     }
 
     public void setWidgetId(int widgetId) {
-        WidgetId = widgetId;
+        this.widgetId = widgetId;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
     }
 }

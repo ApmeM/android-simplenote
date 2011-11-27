@@ -50,4 +50,18 @@
             android:text="@string/widget_layout_button_add"
             style="@style/menu_button"
             android:visibility="gone"/>
+    <Button
+            android:id="@+id/widget_layout_button_next"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/widget_layout_button_next"
+            style="@style/menu_button"
+            android:visibility="gone"/>
+    <Button
+            android:id="@+id/widget_layout_button_prev"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/widget_layout_button_prev"
+            style="@style/menu_button"
+            android:visibility="gone"/>
 </RelativeLayout>

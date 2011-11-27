@@ -33,6 +33,7 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
         listElement.setListId(listId);
         listElement.setWidgetId(widgetId);
         listElement.setId(this.listElements.size());
+        listElement.setPage(0);
         this.listElements.add(listElement);
         return listElement.getId();
     }
@@ -46,10 +47,21 @@ public class ListsWidgetRepositoryFake implements ListsWidgetRepository {
     }
 
     @Override
-    public void update(int widgetId, int listId) {
+    public void removeList(int listId) {
+        for (int i = this.listElements.size() - 1; i >= 0; i--) {
+            ListWidgetElement element = this.listElements.get(i);
+            if (element.getListId() == listId) {
+                this.listElements.remove(i);
+            }
+        }
+    }
+
+    @Override
+    public void update(int widgetId, int listId, int page) {
         ListWidgetElement element = this.get(widgetId);
         if (element != null) {
             element.setListId(listId);
+            element.setPage(page);
         }
     }
 
