@@ -19,11 +19,19 @@
             android:id="@+id/activity_lists_row_button_remove"
             style="@style/menu_button"
             />
+    <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dip"
+            android:id="@+id/activity_lists_row_radio_button"
+            />
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:id="@+id/activity_lists_row_text"
             android:layout_toLeftOf="@id/activity_lists_row_button_remove"
+            android:layout_toRightOf="@id/activity_lists_row_radio_button"
             android:layout_marginTop="10dip"
             android:textSize="16sp"
             style="@style/regular_text"

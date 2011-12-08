@@ -6,10 +6,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import org.apmem.widget.notes.R;
 import org.apmem.widget.notes.datastore.ListsRepository;
 import org.apmem.widget.notes.datastore.model.ListElement;
@@ -86,6 +83,7 @@ public class ListsAdapter extends BaseAdapter {
             TextView textView = (TextView) v.findViewById(R.id.activity_lists_row_text);
             Button remove = (Button) v.findViewById(R.id.activity_lists_row_button_remove);
             Button edit = (Button) v.findViewById(R.id.activity_lists_row_button_edit);
+            RadioButton selected = (RadioButton) v.findViewById(R.id.activity_lists_row_radio_button);
 
             if (textView != null) {
                 textView.setClickable(true);
@@ -104,6 +102,11 @@ public class ListsAdapter extends BaseAdapter {
             }
             if (edit != null) {
                 edit.setOnClickListener(onEditClickListener);
+            }
+            if (selected != null){
+                selected.setClickable(true);
+                selected.setOnClickListener(onItemClickListener);
+                selected.setChecked(selectedListId == element.getId());
             }
         }
 

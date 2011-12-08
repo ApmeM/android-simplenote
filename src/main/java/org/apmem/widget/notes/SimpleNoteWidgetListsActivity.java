@@ -94,7 +94,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     private void select(View text) {
         Log.i(TAG, "select");
-        ListElement element = this.findElement(text);
+        ListElement element = this.findListElement(text);
         int appWidgetId = this.getIntent().getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
         ListWidgetElement widgetElement = listsWidgetRepository.get(appWidgetId);
@@ -112,7 +112,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     private void commit(View button) {
         Log.i(TAG, "commit");
-        ListElement element = this.findElement(button);
+        ListElement element = this.findListElement(button);
         RelativeLayout parent = (RelativeLayout) button.getParent();
         EditText text = (EditText) parent.findViewById(R.id.activity_lists_row_edit_text);
         if (text.getText().toString().equals("")) {
@@ -127,7 +127,7 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     private void cancel(View button) {
         Log.i(TAG, "cancel");
-        ListElement element = this.findElement(button);
+        ListElement element = this.findListElement(button);
         if (element.getName().equals("")) {
             Log.i(TAG, "cancel old item name empty");
             remove(button);
@@ -140,14 +140,14 @@ public class SimpleNoteWidgetListsActivity extends Activity {
 
     private void edit(View button) {
         Log.i(TAG, "edit");
-        ListElement element = this.findElement(button);
+        ListElement element = this.findListElement(button);
         this.listsRepository.update(element.getId(), element.getName(), true);
         this.adapter.notifyDataSetChanged();
     }
 
     private void remove(View button) {
         Log.i(TAG, "remove");
-        ListElement element = this.findElement(button);
+        ListElement element = this.findListElement(button);
         List<ListWidgetElement> listWidgets = this.listsWidgetRepository.list(element.getId());
 
         this.listsRepository.remove(element.getId());
@@ -167,8 +167,8 @@ public class SimpleNoteWidgetListsActivity extends Activity {
         this.adapter.notifyDataSetChanged();
     }
 
-    private ListElement findElement(View control) {
-        Log.i(TAG, "findElement");
+    private ListElement findListElement(View control) {
+        Log.i(TAG, "findListElement");
         RelativeLayout parent = (RelativeLayout) control.getParent();
         return (ListElement) parent.getTag();
     }
