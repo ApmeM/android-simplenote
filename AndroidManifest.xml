@@ -29,5 +29,5 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget_provider_4_4"/>
         </receiver>
     </application>
-    <uses-sdk android:targetSdkVersion="8"/>
+    <uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8"/>
 </manifest> 
