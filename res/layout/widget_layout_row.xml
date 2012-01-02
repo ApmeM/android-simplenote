@@ -4,6 +4,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dip">
+    <ImageButton
+            android:id="@+id/widget_layout_row_checkbox"
+            android:layout_width="20px"
+            android:layout_height="20px"
+            android:layout_marginTop="7px"
+            android:src="@drawable/checked"
+            android:scaleType="fitCenter"
+
+            style="@style/menu_button"
+            />
     <ImageView
             android:id="@+id/widget_layout_row_top_line"
             android:layout_width="fill_parent"
@@ -19,6 +29,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/widget_layout_row_button_edit"
+            android:layout_toRightOf="@id/widget_layout_row_checkbox"
+            android:layout_marginLeft="5px"
             android:id="@+id/widget_layout_row_text"
             android:clickable="true"
             style="@style/regular_text"/>

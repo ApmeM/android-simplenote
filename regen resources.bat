@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Android\android-sdk\platform-tools\aapt.exe" package -m -J C:\Projects\java-notes\target\generated-sources\r -M C:\Projects\java-notes\AndroidManifest.xml -S C:\Projects\java-notes\target\generated-sources\combined-resources\res -I "C:\Program Files (x86)\Android\android-sdk\platforms\android-7\android.jar"

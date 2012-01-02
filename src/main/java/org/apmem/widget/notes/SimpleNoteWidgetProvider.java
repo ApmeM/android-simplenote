@@ -158,9 +158,11 @@ public abstract class SimpleNoteWidgetProvider extends AppWidgetProvider {
         int itemId = item.getId();
         RemoteViews newView = new RemoteViews(remoteViews.getPackage(), R.layout.widget_layout_row);
         newView.setTextViewText(R.id.widget_layout_row_text, text);
+        newView.setInt(R.id.widget_layout_row_checkbox, "setImageResource", item.isDone() ? R.drawable.checked : R.drawable.unchecked);
         remoteViews.addView(R.id.widget_layout_list, newView);
         this.setEventActivity(context, SimpleNoteWidgetItemActivity.class, newView, appWidgetId, itemId, R.id.widget_layout_row_button_edit);
         this.setEventBroadcast(context, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_text);
+        this.setEventBroadcast(context, newView, Constants.ACTION_WIDGET_UPDATE_FROM_WIDGET_READY_ITEM, appWidgetId, itemId, R.id.widget_layout_row_checkbox);
     }
 
     private void updateWidget(Context context, RemoteViews remoteViews, int appWidgetId) {
